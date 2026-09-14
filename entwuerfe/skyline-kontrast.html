@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BRU GmbH – Facility Service Frankfurt am Main</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Expanded:wght@700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dark:#0B2420; --teal:#0F6F63; --orange:#EF9328; --yellow:#F6DD8A;
+    --cream:#F5F1E8; --ink:#161E1B; --gray:#5B6360; --white:#fff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Work Sans',sans-serif;color:var(--ink);background:var(--cream);line-height:1.6}
+  h1,h2,h3{font-family:'Archivo Expanded',sans-serif;margin:0 0 .5em;line-height:1.08;font-weight:800;letter-spacing:-.5px}
+  p{margin:0 0 1em}
+  a{color:inherit}
+  img{max-width:100%;display:block}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+  .btn{display:inline-block;padding:15px 28px;font-weight:700;text-decoration:none;font-size:14px;text-transform:uppercase;letter-spacing:.5px}
+  .btn-primary{background:var(--orange);color:var(--dark)}
+  .btn-outline{border:1.5px solid rgba(255,255,255,.8);color:var(--white)}
+  .btn-dark{background:var(--dark);color:var(--white)}
+  .chip{display:inline-block;background:var(--yellow);color:var(--dark);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:5px 10px}
+  .eyebrow{text-transform:uppercase;letter-spacing:2px;font-size:12px;font-weight:700;color:var(--orange)}
+
+  header{position:sticky;top:0;background:var(--cream);z-index:50;border-bottom:2px solid var(--dark)}
+  .header-inner{display:flex;align-items:center;justify-content:space-between;padding:8px 24px;max-width:1180px;margin:0 auto;gap:20px}
+  .logo{height:52px}
+  nav{display:flex;gap:26px;font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.5px}
+  nav a{text-decoration:none}
+  .notdienst-badge{background:var(--dark);color:var(--white);padding:8px 14px;font-size:12.5px;font-weight:700;white-space:nowrap;text-transform:uppercase;letter-spacing:.5px}
+  @media (max-width:820px){ nav{display:none} }
+
+  .divider{width:100%;display:block;height:60px}
+
+  /* Hero */
+  .hero{position:relative;background:var(--dark);color:var(--white);overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(11,36,32,.96) 30%,rgba(11,36,32,.55) 100%),url('https://images.unsplash.com/photo-1754444215550-7a3be226c2ce?fm=jpg&q=60&w=2000&auto=format&fit=crop') center/cover;z-index:0}
+  .hero-inner{position:relative;z-index:1;padding:110px 24px 90px;max-width:1180px;margin:0 auto}
+  .hero h1{font-size:clamp(34px,5.2vw,58px);max-width:760px}
+  .hero .subline{font-size:18px;opacity:.9;max-width:480px}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin:30px 0 22px}
+  .trust-line{display:flex;gap:10px;flex-wrap:wrap}
+
+  section{padding:80px 0}
+  .section-head{max-width:640px;margin:0 0 40px}
+  .section-head.center{margin:0 auto 50px;text-align:center}
+
+  .intro p{font-size:19px;max-width:740px}
+
+  .usp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:2px solid var(--dark)}
+  .usp-card{padding:26px 0;border-bottom:2px solid var(--dark)}
+  .usp-card:nth-child(-n+3){border-right:2px solid var(--dark)}
+  .usp-card:nth-child(3n){border-right:none}
+  .usp-card{padding-left:20px;padding-right:20px}
+  .usp-card h3{font-size:18px}
+  @media (max-width:760px){ .usp-grid{grid-template-columns:1fr 1fr} .usp-card:nth-child(-n+3){border-right:2px solid var(--dark)} .usp-card:nth-child(2n){border-right:none} }
+  @media (max-width:520px){ .usp-grid{grid-template-columns:1fr} .usp-card{border-right:none !important} }
+
+  .dark-band{background:var(--dark);color:var(--white)}
+
+  .service-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:var(--dark)}
+  .service-card{background:var(--dark);color:var(--white);padding:26px 20px;min-height:220px;display:flex;flex-direction:column}
+  .service-card .mono{font-family:'Archivo Expanded',sans-serif;font-size:34px;color:var(--orange);font-weight:800}
+  .service-card h3{font-size:16px;margin-top:10px}
+  .service-card p{font-size:13.5px;opacity:.85;flex:1}
+  .service-card a{font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--yellow);text-decoration:none}
+  @media (max-width:900px){ .service-strip{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:560px){ .service-strip{grid-template-columns:1fr} }
+
+  .notdienst{text-align:center}
+  .notdienst .big-phone{font-size:clamp(30px,5.5vw,46px);font-weight:800;font-family:'Archivo Expanded',sans-serif;margin:14px 0 26px;display:block;color:var(--orange)}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:2px solid var(--dark)}
+  .steps > div{padding:26px 20px 0}
+  .step-num{font-family:'Archivo Expanded',sans-serif;font-size:44px;font-weight:800;color:var(--dark);opacity:.15;margin-bottom:-10px}
+  @media (max-width:760px){ .steps{grid-template-columns:1fr} }
+
+  .warum-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:2px solid rgba(255,255,255,.25);border-bottom:2px solid rgba(255,255,255,.25);margin-bottom:36px}
+  .warum-grid > div{padding:26px 20px;border-right:2px solid rgba(255,255,255,.25)}
+  .warum-grid > div:last-child{border-right:none}
+  @media (max-width:900px){ .warum-grid{grid-template-columns:1fr 1fr} .warum-grid>div:nth-child(2n){border-right:none} }
+
+  .team{display:grid;grid-template-columns:.9fr 1.1fr;gap:0;align-items:stretch}
+  .team-img{aspect-ratio:auto;height:100%;min-height:340px;overflow:hidden}
+  .team-img img{width:100%;height:100%;object-fit:cover}
+  .team-text{background:var(--dark);color:var(--white);padding:56px;display:flex;flex-direction:column;justify-content:center}
+  @media (max-width:820px){ .team{grid-template-columns:1fr} .team-img{min-height:220px} .team-text{padding:36px} }
+
+  details{border-bottom:2px solid var(--dark);padding:20px 0}
+  summary{font-weight:800;cursor:pointer;font-size:18px;list-style:none;display:flex;justify-content:space-between;font-family:'Archivo Expanded',sans-serif}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"→";color:var(--orange);transform:rotate(90deg);transition:transform .15s}
+  details[open] summary::after{transform:rotate(-90deg)}
+  details p{margin-top:14px;color:var(--gray);font-family:'Work Sans',sans-serif;font-weight:400}
+
+  .contact-cta{text-align:center}
+  .contact-cta h2{font-size:clamp(28px,4vw,42px)}
+
+  footer{background:var(--dark);color:#B9C7C2;padding:56px 0 28px;font-size:14.5px}
+  .footer-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:32px;margin-bottom:36px}
+  footer h4{color:var(--white);font-family:'Archivo Expanded',sans-serif;font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px}
+  footer ul{list-style:none;padding:0;margin:0}
+  footer li{margin-bottom:8px}
+  footer a{text-decoration:none;color:#B9C7C2}
+  .footer-logo{filter:brightness(0) invert(1);height:44px;margin-bottom:14px}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:#7C8E88}
+  @media (max-width:820px){ .footer-grid{grid-template-columns:1fr 1fr} }
+
+  .wa-fab{position:fixed;bottom:24px;right:24px;background:var(--orange);color:var(--dark);width:56px;height:56px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(0,0,0,.35);text-decoration:none;font-size:24px;z-index:60;font-weight:800}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <img src="assets/logo.svg" alt="BRU GmbH" class="logo">
+    <nav>
+      <a href="#start">Start</a>
+      <a href="#ueber-uns">Über uns</a>
+      <a href="#leistungen">Leistungen</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <span class="notdienst-badge">24H · 0156 650 251 66</span>
+  </div>
+</header>
+
+<section class="hero" id="start">
+  <div class="hero-inner">
+    <span class="chip">Frankfurt am Main · Rhein-Main</span>
+    <h1>Ihr Rundum-Partner für Bau, Reinigung und Umfeldbetreuung</h1>
+    <p class="subline">Von der ersten Anfrage bis zur Umsetzung ein fester Ansprechpartner – für Privathaushalte und Gewerbe, deutschlandweit auf Anfrage.</p>
+    <div class="hero-ctas">
+      <a href="#kontakt" class="btn btn-primary">Kostenlose Beratung anfragen</a>
+      <a href="tel:015665025166" class="btn btn-outline">📞 0156 650 251 66</a>
+    </div>
+    <div class="trust-line">
+      <span class="chip">10+ Jahre Erfahrung</span>
+      <span class="chip">Zertifiziertes Personal</span>
+      <span class="chip">24h-Notdienst</span>
+    </div>
+  </div>
+  <svg class="divider" viewBox="0 0 1440 90" preserveAspectRatio="none" style="position:relative;display:block;margin-top:-2px"><path d="M0,90 L0,60 L60,60 L60,30 L140,30 L140,50 L220,50 L220,10 L300,10 L300,45 L380,45 L380,20 L460,20 L460,55 L540,55 L540,15 L620,15 L620,40 L700,40 L700,0 L760,0 L760,35 L840,35 L840,55 L920,55 L920,25 L1000,25 L1000,60 L1080,60 L1080,10 L1160,10 L1160,45 L1240,45 L1240,20 L1320,20 L1320,50 L1400,50 L1400,65 L1440,65 L1440,90 Z" fill="#F5F1E8"/></svg>
+</section>
+
+<section class="intro">
+  <div class="wrap">
+    <div class="eyebrow">Wer wir sind</div>
+    <p>Seit über zehn Jahren sorgen wir in Frankfurt am Main und der Region Rhein-Main mit derselben Sorgfalt für ein Ergebnis, das überzeugt – ob Gebäudereinigung, Sanierung oder die Pflege Ihrer Außenanlagen. Bei uns bekommen Sie einen festen Ansprechpartner statt wechselnder Kontakte. <a href="#ueber-uns" style="color:var(--dark);font-weight:800;text-decoration:none">Mehr über uns →</a></p>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="usp-grid">
+      <div class="usp-card"><h3>10+ Jahre Erfahrung</h3><p>Gewachsenes Fachwissen in Bau, Reinigung und Umfeldbetreuung.</p></div>
+      <div class="usp-card"><h3>Privathaushalte &amp; Gewerbe</h3><p>Gleiche Sorgfalt, ob Wohnung oder Bürokomplex.</p></div>
+      <div class="usp-card"><h3>Zertifiziertes Fachpersonal</h3><p>Kontinuierlich weitergebildet, sauber gearbeitet.</p></div>
+      <div class="usp-card"><h3>Kurze Reaktionszeiten</h3><p>Wir melden uns schnell – Ihre Zeit ist wertvoll.</p></div>
+      <div class="usp-card"><h3>24h-Notdienst</h3><p>Rund um die Uhr erreichbar, wenn es darauf ankommt.</p></div>
+      <div class="usp-card"><h3>Fester Ansprechpartner</h3><p>Eine Person, die Ihr Projekt kennt.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="dark-band" id="leistungen" style="padding:0 0 80px">
+  <svg class="divider" viewBox="0 0 1440 90" preserveAspectRatio="none" style="transform:scaleY(-1);margin-bottom:-2px"><path d="M0,90 L0,60 L60,60 L60,30 L140,30 L140,50 L220,50 L220,10 L300,10 L300,45 L380,45 L380,20 L460,20 L460,55 L540,55 L540,15 L620,15 L620,40 L700,40 L700,0 L760,0 L760,35 L840,35 L840,55 L920,55 L920,25 L1000,25 L1000,60 L1080,60 L1080,10 L1160,10 L1160,45 L1240,45 L1240,20 L1320,20 L1320,50 L1400,50 L1400,65 L1440,65 L1440,90 Z" fill="#F5F1E8"/></svg>
+  <div class="wrap" style="padding-top:20px">
+    <div class="section-head">
+      <div class="eyebrow">Leistungen</div>
+      <h2>Fünf Bereiche, ein Ansprechpartner</h2>
+    </div>
+  </div>
+  <div class="service-strip">
+    <div class="service-card"><div class="mono">01</div><h3>Gebäudereinigung</h3><p>Von Büros bis Fassaden: gründlich, zuverlässig, unauffällig im Ablauf.</p><a href="#">Mehr erfahren →</a></div>
+    <div class="service-card"><div class="mono">02</div><h3>Bau, Renovierung &amp; Sanierung</h3><p>Vom Trockenbau bis zur kompletten Sanierung.</p><a href="#">Mehr erfahren →</a></div>
+    <div class="service-card"><div class="mono">03</div><h3>Garten &amp; Außenanlagen</h3><p>Gepflegte Außenbereiche, die zu Ihrer Immobilie passen.</p><a href="#">Mehr erfahren →</a></div>
+    <div class="service-card"><div class="mono">04</div><h3>Winterdienst</h3><p>Geräumte Wege und Plätze, auch im Ernstfall kurzfristig.</p><a href="#">Mehr erfahren →</a></div>
+    <div class="service-card"><div class="mono">05</div><h3>Hausmeisterservice</h3><p>Regelmäßige Betreuung, ein Ansprechpartner für alle Fälle.</p><a href="#">Mehr erfahren →</a></div>
+  </div>
+</section>
+
+<section class="notdienst">
+  <div class="wrap">
+    <div class="eyebrow">24h-Notdienst</div>
+    <h2>Wenn es nicht bis morgen warten kann</h2>
+    <p style="max-width:520px;margin:0 auto 8px;color:var(--gray)">Rohrbruch, Sturmschaden oder eine verschneite Zufahrt am Wochenende – wir sind erreichbar, wenn Sie uns brauchen.</p>
+    <a class="big-phone" href="tel:015665025166">0156 650 251 66</a>
+    <a href="tel:015665025166" class="btn btn-dark">Jetzt anrufen</a>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head center"><div class="eyebrow">Ablauf</div><h2>Wie wir arbeiten</h2></div>
+    <div class="steps">
+      <div><div class="step-num">01</div><h3>Kontaktaufnahme</h3><p>Sie schildern uns Ihr Anliegen – per Telefon, WhatsApp oder Formular.</p></div>
+      <div><div class="step-num">02</div><h3>Analyse &amp; Angebot</h3><p>Wir prüfen die Lage vor Ort und erstellen ein individuelles Angebot.</p></div>
+      <div><div class="step-num">03</div><h3>Umsetzung</h3><p>Ihr fester Ansprechpartner begleitet die Umsetzung bis zum Abschluss.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="dark-band">
+  <div class="wrap">
+    <div class="section-head center"><div class="eyebrow">Warum BRU GmbH</div><h2>Substanz statt Marketing-Sprache</h2></div>
+    <div class="warum-grid">
+      <div><h3 style="font-size:17px">Ein Anbieter für alles</h3><p style="opacity:.85">Bau, Reinigung und Umfeldbetreuung aus einer Hand.</p></div>
+      <div><h3 style="font-size:17px">Persönlich statt anonym</h3><p style="opacity:.85">Fester Ansprechpartner statt Callcenter.</p></div>
+      <div><h3 style="font-size:17px">Schnell, wenn's zählt</h3><p style="opacity:.85">24h-Notdienst und kurze Reaktionszeiten.</p></div>
+      <div><h3 style="font-size:17px">In Rhein-Main verwurzelt</h3><p style="opacity:.85">Seit über zehn Jahren vor Ort.</p></div>
+    </div>
+    <div style="text-align:center"><a href="#ueber-uns" class="btn btn-primary">Lernen Sie uns kennen</a></div>
+  </div>
+</section>
+
+<section id="ueber-uns" style="padding:0">
+  <div class="team">
+    <div class="team-img">
+      <img src="https://images.unsplash.com/photo-1758836113725-a1b082c622bd?fm=jpg&q=60&w=1200&auto=format&fit=crop" alt="Platzhalter-Bild: Facharbeiter bei der Fassadenreinigung – wird später durch echtes BRU-Teamfoto ersetzt">
+    </div>
+    <div class="team-text">
+      <div class="eyebrow">Das Team</div>
+      <h2>Feste Gesichter statt wechselnder Kontakte</h2>
+      <p style="opacity:.85;max-width:420px">Hinter BRU GmbH steht ein eingespieltes Team mit über zehn Jahren Erfahrung – keine Zeitarbeiter, sondern feste Ansprechpartner, die Ihr Objekt kennen.</p>
+      <div><a href="#" class="btn btn-primary">Zum Team</a></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap" style="max-width:780px">
+    <div class="section-head center"><div class="eyebrow">FAQ</div><h2>Häufige Fragen</h2></div>
+    <details open><summary>Welches Gebiet deckt ihr ab?</summary><p>Unser Kerngebiet ist Rhein-Main, auf Anfrage sind wir auch deutschlandweit im Einsatz.</p></details>
+    <details><summary>Gibt es feste Verträge/Abos (z. B. Winterdienst, Gartenpflege)?</summary><p>Ja, für wiederkehrende Leistungen wie Winterdienst oder Gartenpflege bieten wir Saisonverträge an – sprechen Sie uns einfach an.</p></details>
+    <details><summary>Wie schnell seid ihr im Notfall vor Ort?</summary><p>Über unseren 24h-Notdienst sind wir kurzfristig erreichbar – die genaue Anfahrtszeit hängt vom Einsatzort ab.</p></details>
+    <details><summary>Arbeitet ihr auch für Privathaushalte?</summary><p>Ja, Privathaushalte und Gewerbe sind uns gleich wichtig.</p></details>
+    <details><summary>Wie läuft eine Anfrage ab?</summary><p>Sie kontaktieren uns, wir analysieren die Lage vor Ort und Sie erhalten ein individuelles Angebot – siehe „Wie wir arbeiten“.</p></details>
+  </div>
+</section>
+
+<section class="dark-band contact-cta" id="kontakt">
+  <div class="wrap">
+    <h2>Bereit für einen festen Ansprechpartner statt wechselnder Kontakte?</h2>
+    <a href="#" class="btn btn-primary">Kostenlose Beratung anfragen</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <img src="assets/logo.svg" class="footer-logo" alt="BRU GmbH">
+        <p style="color:#7C8E88">Bau · Reinigung · Umfeldbetreuung in Frankfurt am Main und Rhein-Main.</p>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <ul>
+          <li>📞 <a href="tel:015665025166">0156 650 251 66</a></li>
+          <li>✉️ [E-Mail-Adresse]</li>
+          <li>💬 <a href="#">WhatsApp</a></li>
+          <li>[Firmenadresse, Frankfurt am Main]</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Leistungen</h4>
+        <ul>
+          <li><a href="#">Gebäudereinigung</a></li>
+          <li><a href="#">Bau, Renovierung &amp; Sanierung</a></li>
+          <li><a href="#">Garten &amp; Außenanlagen</a></li>
+          <li><a href="#">Winterdienst</a></li>
+          <li><a href="#">Hausmeisterservice</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Rechtliches</h4>
+        <ul>
+          <li><a href="#">Impressum</a></li>
+          <li><a href="#">Datenschutz</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 BRU GmbH</span>
+      <span>Bildmaterial: Platzhalter (Unsplash-Lizenz), wird durch reales BRU-Bildmaterial ersetzt</span>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-fab" href="https://wa.me/4915665025166" aria-label="WhatsApp Kontakt" title="WhatsApp">💬</a>
+
+</body>
+</html>
