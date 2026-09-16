@@ -65,9 +65,10 @@ section { padding: 88px 0; }
   letter-spacing: 0.06em;
   margin-bottom: 16px;
 }
-.pill-blue { background: rgba(4, 107, 210, 0.1); color: var(--blue); }
-.pill-orange { background: rgba(244, 113, 30, 0.12); color: var(--orange-dark); }
-.pill-light { background: rgba(255, 255, 255, 0.15); color: var(--white); }
+.pill-blue { color: var(--blue); }
+.pill-orange { color: var(--orange-dark); }
+.pill-light { color: var(--white); }
+.pill:not(.header-notdienst) { background: none; padding: 0; border-radius: 0; }
 .center-pill { display: flex; justify-content: center; margin-left: auto; margin-right: auto; }
 .eyebrow { display: block; text-transform: uppercase; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; color: var(--gray); margin-bottom: 10px; }
 
@@ -306,7 +307,7 @@ section { padding: 88px 0; }
 }
 .notdienst-inner { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
 .notdienst-copy { max-width: 560px; }
-.notdienst-copy .pill { background: rgba(255, 255, 255, 0.18); color: var(--white); }
+.notdienst-copy .pill { color: var(--white); }
 .notdienst-inner h2 { color: var(--white); margin-bottom: 8px; }
 .notdienst-inner p { color: rgba(255, 255, 255, 0.85); margin: 0; }
 .notdienst-phone {
@@ -338,12 +339,6 @@ section { padding: 88px 0; }
 .stats-grid > div + div::before {
   content: ""; position: absolute; left: 0; top: 8px; bottom: 8px; width: 1px;
   background: rgba(255, 255, 255, 0.35);
-}
-.stat-icon {
-  width: 56px; height: 56px; border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.5rem; margin: 0 auto 14px;
 }
 .stat-num { display: block; font-size: 2.4rem; font-weight: 800; color: var(--white); line-height: 1; }
 .stat-label { display: block; margin-top: 6px; color: rgba(255, 255, 255, 0.92); font-weight: 600; font-size: 0.92rem; }
