@@ -24,6 +24,22 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+
+/* Lenis Ease-Out-Scroll */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 body {
   margin: 0;
   font-family: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -154,8 +170,9 @@ section { padding: 72px 0; }
   font-weight: 600;
   font-size: 0.95rem;
   color: var(--ink);
+  transition: color 0.2s cubic-bezier(0.22, 1, 0.36, 1), transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.main-nav a:hover { color: var(--teal); }
+.main-nav a:hover { color: var(--teal); transform: translateY(-1px); }
 .nav-cta-mobile { display: none; }
 .header-actions {
   display: flex;
@@ -211,6 +228,9 @@ section { padding: 72px 0; }
   padding: 10px;
   z-index: 120;
 }
+.nav-dropdown::before {
+  content: ""; position: absolute; left: 0; right: 0; top: -14px; height: 14px;
+}
 .nav-dropdown a {
   display: block;
   padding: 10px 14px;
@@ -219,8 +239,9 @@ section { padding: 72px 0; }
   font-size: 0.9rem;
   white-space: nowrap;
   color: var(--ink);
+  transition: background 0.2s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s cubic-bezier(0.22, 1, 0.36, 1), transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.nav-dropdown a:hover { background: var(--teal-light); color: var(--teal-dark); }
+.nav-dropdown a:hover { background: var(--teal-light); color: var(--teal-dark); transform: translateX(2px); }
 .nav-dropdown-all {
   border-top: 1px solid var(--gray-light);
   margin-top: 4px;
@@ -332,16 +353,6 @@ section { padding: 72px 0; }
   border: 1px solid rgba(11,125,118,0.08);
 }
 .hero-form-head { margin-bottom: 20px; }
-.step-badge {
-  display: inline-block;
-  background: var(--teal-light);
-  color: var(--teal-dark);
-  font-size: 0.78rem;
-  font-weight: 700;
-  padding: 5px 12px;
-  border-radius: var(--radius-pill);
-  margin-bottom: 10px;
-}
 .hero-form-head h2 { font-size: 1.5rem; margin-bottom: 4px; }
 .hero-form-head p { margin: 0; font-size: 0.92rem; }
 
@@ -804,7 +815,8 @@ section { padding: 72px 0; }
   background: var(--teal-light);
   flex-shrink: 0;
 }
-.contact-list a:hover { color: var(--teal); }
+.contact-list a { transition: color 0.2s cubic-bezier(0.22, 1, 0.36, 1), transform 0.2s cubic-bezier(0.22, 1, 0.36, 1); }
+.contact-list a:hover { color: var(--teal); transform: translateX(2px); }
 .map-embed {
   border-radius: var(--radius);
   overflow: hidden;
@@ -1012,8 +1024,9 @@ section { padding: 72px 0; }
   color: rgba(255,255,255,0.7);
   font-size: 0.92rem;
   margin-bottom: 10px;
+  transition: color 0.2s cubic-bezier(0.22, 1, 0.36, 1), transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.footer-grid a:hover { color: var(--yellow); }
+.footer-grid a:hover { color: var(--yellow); transform: translateX(2px); }
 .footer-bottom {
   border-top: 1px solid rgba(255,255,255,0.12);
   padding: 20px 24px;
@@ -1060,6 +1073,26 @@ section { padding: 72px 0; }
   box-shadow: var(--shadow-orange);
   font-size: 0.92rem;
 }
+
+/* WhatsApp Sticky-Button (Desktop) */
+.whatsapp-fab {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 90;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25d366;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.whatsapp-fab:hover { transform: translateY(-3px); box-shadow: 0 20px 40px -16px rgba(11,125,118,0.4); }
+.whatsapp-fab svg { width: 28px; height: 28px; fill: var(--white); }
 
 /* Legal pages */
 .legal-page { padding: 64px 0 90px; max-width: 760px; margin: 0 auto; }
@@ -1121,6 +1154,7 @@ section { padding: 72px 0; }
   .logo-strip-inner { grid-template-columns: repeat(2, 1fr); gap: 24px; }
   .choice-grid { grid-template-columns: repeat(2, 1fr); }
   .sticky-cta { display: flex; }
+  .whatsapp-fab { display: none; }
   body { padding-bottom: 78px; }
   .footer-grid { grid-template-columns: 1fr; }
 
@@ -1138,6 +1172,7 @@ section { padding: 72px 0; }
     padding: 0 0 0 10px;
     margin-bottom: 4px;
   }
+  .nav-dropdown::before { content: none; }
   .nav-has-dropdown.open .nav-dropdown { display: flex; }
   .nav-has-dropdown:hover .nav-dropdown,
   .nav-has-dropdown:focus-within .nav-dropdown { display: none; }

@@ -17,6 +17,22 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+
+/* Lenis Ease-Out-Scroll */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 body {
   margin: 0;
   font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -81,8 +97,8 @@ p { margin: 0 0 14px; color: var(--gray); }
 .header-inner { display: flex; align-items: center; gap: 28px; padding: 14px 24px; }
 .logo { height: 40px; }
 .main-nav { display: flex; align-items: center; gap: 26px; margin-left: 12px; flex: 1; }
-.main-nav a { font-weight: 600; font-size: 0.95rem; color: var(--ink); }
-.main-nav a:hover, .main-nav a.active { color: var(--teal); }
+.main-nav a { font-weight: 600; font-size: 0.95rem; color: var(--ink); transition: color 0.2s cubic-bezier(0.22, 1, 0.36, 1), transform 0.2s cubic-bezier(0.22, 1, 0.36, 1); }
+.main-nav a:hover, .main-nav a.active { color: var(--teal); transform: translateY(-1px); }
 .nav-toggle { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; }
 
 /* Nav dropdown "Leistungen" */
@@ -100,8 +116,11 @@ p { margin: 0 0 14px; color: var(--gray); }
   background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow);
   padding: 10px; min-width: 260px; z-index: 60;
 }
-.dropdown-menu a { padding: 10px 14px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; white-space: nowrap; }
-.dropdown-menu a:hover, .dropdown-menu a.active { background: var(--gray-light); color: var(--teal); }
+.dropdown-menu::before {
+  content: ""; position: absolute; left: 0; right: 0; top: -16px; height: 16px;
+}
+.dropdown-menu a { padding: 10px 14px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; white-space: nowrap; transition: background 0.2s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s cubic-bezier(0.22, 1, 0.36, 1), transform 0.2s cubic-bezier(0.22, 1, 0.36, 1); }
+.dropdown-menu a:hover, .dropdown-menu a.active { background: var(--gray-light); color: var(--teal); transform: translateX(2px); }
 .nav-item.open .dropdown-menu, .nav-item:hover .dropdown-menu { display: flex; }
 
 /* Sticky Notdienst-Badge im Header */
@@ -111,7 +130,8 @@ p { margin: 0 0 14px; color: var(--gray); }
   font-weight: 700; font-size: 0.82rem; white-space: nowrap;
   padding: 8px 14px; border-radius: 999px; border: 1px solid rgba(11,125,118,0.2);
 }
-.header-emergency:hover { background: var(--teal); color: var(--white); border-color: var(--teal); }
+.header-emergency { transition: background 0.2s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1), transform 0.2s cubic-bezier(0.22, 1, 0.36, 1); }
+.header-emergency:hover { background: var(--teal); color: var(--white); border-color: var(--teal); transform: translateY(-1px); }
 .pulse-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--orange); flex: none; }
 
 /* WhatsApp Sticky-Button */
@@ -120,10 +140,11 @@ p { margin: 0 0 14px; color: var(--gray); }
   width: 56px; height: 56px; border-radius: 50%;
   background: #25d366; color: var(--white);
   display: flex; align-items: center; justify-content: center;
-  font-size: 1.6rem; box-shadow: var(--shadow);
+  box-shadow: var(--shadow);
   transition: transform 0.15s ease;
 }
 .whatsapp-fab:hover { transform: translateY(-2px) scale(1.05); }
+.whatsapp-fab svg { width: 28px; height: 28px; fill: var(--white); }
 
 /* Hero */
 .hero { padding: 64px 0 40px; background: linear-gradient(180deg, #ffffff 0%, var(--bg) 100%); }
@@ -194,7 +215,7 @@ p { margin: 0 0 14px; color: var(--gray); }
 .check-list li::before { content: "✓"; position: absolute; left: 0; color: var(--teal); font-weight: 800; }
 
 /* Wer wir sind (Kurzvorstellung, Startseite) */
-.wer-wir-sind { padding: 70px 0 10px; background: var(--white); }
+.wer-wir-sind { padding: 70px 0; background: var(--white); }
 .wer-wir-sind-inner { max-width: 720px; }
 
 /* Team-Teaser (nutzt .ueber-uns-grid) */
@@ -310,8 +331,8 @@ p { margin: 0 0 14px; color: var(--gray); }
 .footer-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr 1fr; gap: 28px; }
 .footer-logo { height: 32px; margin-bottom: 12px; }
 .site-footer h4 { color: var(--white); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
-.site-footer a, .site-footer span { display: block; margin-bottom: 8px; font-size: 0.9rem; opacity: 0.85; }
-.site-footer a:hover { opacity: 1; text-decoration: underline; }
+.site-footer a, .site-footer span { display: block; margin-bottom: 8px; font-size: 0.9rem; opacity: 0.85; transition: opacity 0.2s cubic-bezier(0.22, 1, 0.36, 1), transform 0.2s cubic-bezier(0.22, 1, 0.36, 1); }
+.site-footer a:hover { opacity: 1; text-decoration: underline; transform: translateX(2px); }
 .footer-bottom { margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem; opacity: 0.7; }
 
 /* Legal pages */
@@ -343,6 +364,7 @@ p { margin: 0 0 14px; color: var(--gray); }
     position: static; display: none; box-shadow: none; background: transparent;
     padding: 6px 0 0 14px; min-width: 0;
   }
+  .dropdown-menu::before { content: none; }
   .nav-item:hover .dropdown-menu { display: none; }
   .nav-item.open .dropdown-menu { display: flex; }
 }

@@ -152,16 +152,17 @@ Da noch keine echten Fotos vorliegen und diese später KI-generiert werden, hier
 - Team-Foto: professionell, einsatznah, nicht steril
 - Je Kategorie-Seite: ein repräsentatives Motiv (z. B. Reinigung: streifenfreies Fenster; Garten: gepflegte Außenanlage; Winterdienst: geräumter Gehweg)
 
-### Fotoersatz-Pipeline (Umsetzung) — abgeschlossen für alle drei Varianten
+### Fotoersatz-Pipeline (Umsetzung) — abgeschlossen für alle vier Varianten
 
 Die ursprünglichen Platzhalter (ein gemeinsamer, wiederverwendeter 7-Bilder-Pool ohne EXIF-Daten) wurden ersetzt durch ein Bildsystem mit eigenem Stil je Variante: Umgebungs-/Objekt-Motive automatisiert über Google AI Studio (`scripts/generate_images.py`, Modell `gemini-3-pro-image` alias "Nano Banana Pro"), Personen-Motive automatisiert über die Higgsfield-CLI (`higgsfield generate create gpt_image_2_5 …`). Kein gestelltes "Team-Foto" mit erkennbaren Gesichtern (Vertrauensrisiko bei fingierten Mitarbeitern) – stattdessen Personen nur anonymisiert gezeigt (Rückenansicht, Silhouette, Fokus auf die Tätigkeit statt aufs Gesicht, Hände-Detail).
 
-Reihenfolge: zuerst `corporate` als Pilot (Gold-Standard-Loop), nach Freigabe auf `premium` und `modern` mit jeweils eigenem Style-Brief übertragen. Alle generierten Rohvarianten liegen zur Nachvollziehbarkeit in `<variante>/assets/_generated/` (per `.gitignore` ausgeschlossen); die finalen, komprimierten Bilder liegen direkt in `<variante>/assets/`.
+Reihenfolge: zuerst `corporate` als Pilot (Gold-Standard-Loop), nach Freigabe auf `premium` und `modern` mit jeweils eigenem Style-Brief übertragen. Als vierte Variante kam `referenz` hinzu (siehe "Vierte Variante" unten), ebenfalls mit eigenem Style-Brief. Alle generierten Rohvarianten liegen zur Nachvollziehbarkeit in `<variante>/assets/_generated/` (per `.gitignore` ausgeschlossen); die finalen, komprimierten Bilder liegen direkt in `<variante>/assets/`.
 
 **Motiv-Zuordnung je Variante** (nicht jede Variante nutzt jedes Motiv als Foto):
 - `corporate`: nur `gebaeude` (Hero) + `handshake` (Beratung) – die 5 Leistungen sind dort Emoji-Icons, kein Foto je Kategorie.
 - `premium`: alle 7 Motive (`gebaeude`, `bau`, `garten`, `winterdienst`, `reinigung`, `hausmeister`, `handshake`) – Hero + 5 Service-Rows + Galerie.
 - `modern`: 6 Motive, **kein** `gebaeude` (das Modern-Hero hat nur ein Angebots-Formular, kein Bild) – `bau`, `garten`, `winterdienst`, `reinigung`, `hausmeister` als Service-Card-Bild, `handshake` in der Über-uns-Sektion.
+- `referenz`: alle 7 Motive, wie `premium` – Hero, Über-uns-Collage, 5 Service-Karten, Ablauf-Schritte (farbig getönt) und "Warum"-Sektion teilen sich denselben Bildpool.
 
 **Style-Brief Corporate** (abgeleitet aus `corporate/styles.css`: Teal `#0b7d76`, Orange-Akzent `#fb923c`, Off-White-Hintergrund, klare Sans-Serif-Typografie):
 Photoreal, natürliches Tageslicht, klarer, leicht kühler Weißabgleich mit dezentem Teal-Unterton in Schatten. Aufgeräumte, architektonische Komposition mit viel Negativraum, Augenhöhe oder leicht erhöht, keine Weitwinkel-/Fisheye-Verzerrung. Wirkt wie mit einer Vollformat-DSLR bei 50–85mm aufgenommen, natürliche Tiefenschärfe, realistischer fotografischer Kontrast (kein HDR, nicht überschärft). Vermeiden: Illustrations-/3D-Render-Look, übersättigte Farben, perfekte Symmetrie, plastikhafte/wächserne Oberflächen, verzerrte Architekturlinien, Lens-Flares, gestellte Stockfoto-Lächeln.
@@ -231,6 +232,12 @@ Lokale Bezüge (Frankfurt am Main, Rhein-Main) konsequent in Title/H1 der jeweil
 ## Ausblick (nicht Teil des aktuellen Scopes)
 
 WhatsApp-Bot für automatisierte Erstantworten/Terminanfragen – als mögliches Zusatzangebot für den Kunden zu einem späteren Zeitpunkt, unabhängig vom initialen Website-Launch.
+
+## Vierte Variante: „Referenz“
+
+Nach Sichtung der drei ursprünglichen Entwürfe (Corporate, Premium, Modern) hat der Kunde zusätzlich facilityup.de als gestalterisches Vorbild benannt – diesmal nicht nur strukturell (wie beim ursprünglichen content-plan), sondern explizit für das visuelle Design. Die vierte Variante `referenz` übernimmt daher bewusst die charakteristischen Bausteine von facilityup.de (Foto-Hero mit Checklist-Zeile, laufendes Marken-Ticker-Band, Über-uns-Fotocollage, Leistungs-Kacheln mit Icon-Kreis, dreistufiger Ablauf als farbige Bildkarten, diagonal geschnittenes CTA-Banner, Statistik-Leiste, Akkordeon-FAQ) sowie die Farbpalette (Petrol-Navy, Orange-Akzent, Blau-Akzent) und Typografie (Google Font „Kumbh Sans“) des Vorbilds.
+
+Der Content bleibt identisch zu den anderen drei Varianten (gleiche USPs, alle 5 Leistungskategorien mit sämtlichen Einzelleistungen, gleiche FAQ, gleiches erweitertes Kontaktformular). Bewusste Verbesserungen gegenüber dem Vorbild: eigene 24h-Notdienst-Sektion samt Sticky-Button (im Original nicht vorhanden), Google-Maps-Alternative (OpenStreetMap-Einbettung) auf der Kontaktseite, ausklappbare Leistungs-Tags statt einer kurzen Liste (da BRU ca. 58 statt 6 Einzelleistungen hat), sowie Reduced-Motion-Rücksicht beim Ticker-Band.
 
 ## Nächste Schritte
 

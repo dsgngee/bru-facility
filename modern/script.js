@@ -1,3 +1,12 @@
+// Ease-Out-Scroll (Lenis): sanftes Nachlaufen nach dem Scrollen
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && window.Lenis) {
+  var lenis = new Lenis({ duration: 1.1, easing: function (t) { return 1 - Math.pow(1 - t, 3); } });
+  (function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  })();
+}
+
 // Mobiles Menü
 const navToggle = document.getElementById('navToggle');
 const mainNav = document.getElementById('mainNav');
