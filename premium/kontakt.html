@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Datenschutz | BRU GmbH Facility Service</title>
-<meta name="robots" content="noindex">
+<title>Kontakt | BRU GmbH Facility Service Frankfurt</title>
+<meta name="description" content="Kontaktieren Sie BRU GmbH: Telefon, E-Mail, WhatsApp oder Formular mit Leistungsauswahl und Datei-Upload — Ihr fester Ansprechpartner meldet sich kurzfristig zurück. 24h-Notdienst für dringende Fälle.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -30,7 +32,7 @@
       </div>
       <a href="index.html#galerie"><span>02</span> Arbeiten</a>
       <a href="ueber-uns.html"><span>03</span> Über uns</a>
-      <a href="kontakt.html"><span>04</span> Kontakt</a>
+      <a href="kontakt.html" class="active"><span>04</span> Kontakt</a>
     </nav>
     <div class="header-right">
       <span class="notdienst-badge">24h-Notdienst</span>
@@ -41,31 +43,83 @@
 </header>
 
 <main>
-  <section class="legal-page">
+
+  <section class="page-hero no-media">
     <div class="wrap">
-      <h1>Datenschutzerklärung</h1>
-
-      <h2>Verantwortlicher</h2>
-      <p>
-        BRU GmbH<br>
-        Darmstädter Landstraße 116<br>
-        60598 Frankfurt am Main<br>
-        E-Mail: <a href="mailto:info@bru-fs.de">info@bru-fs.de</a>
-      </p>
-
-      <h2>Erhebung und Verarbeitung von Daten</h2>
-      <p>Wenn Sie uns über das Kontaktformular oder per E-Mail kontaktieren, verarbeiten wir die von Ihnen angegebenen Daten (z. B. Name, Kontaktweg, Nachricht) ausschließlich zur Bearbeitung Ihrer Anfrage. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO.</p>
-
-      <h2>Speicherdauer</h2>
-      <p>Ihre Daten werden gelöscht, sobald sie für die Bearbeitung Ihrer Anfrage nicht mehr erforderlich sind, sofern keine gesetzlichen Aufbewahrungspflichten entgegenstehen.</p>
-
-      <h2>Ihre Rechte</h2>
-      <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer personenbezogenen Daten sowie das Recht auf Datenübertragbarkeit und Widerspruch. Wenden Sie sich hierzu an die oben genannte Kontaktadresse.</p>
-
-      <h2>Hinweis</h2>
-      <p><em>Diese Datenschutzerklärung ist ein Platzhalter auf Basis der uns vorliegenden Informationen und ersetzt keine rechtliche Prüfung. Sie wird nach Freigabe durch den Kunden final abgestimmt (z. B. Einbindung von Cookies, Tracking-Tools, Hosting-Anbieter).</em></p>
+      <p class="eyebrow">Kontakt</p>
+      <h1>Sprechen wir<br>über Ihr Projekt.</h1>
+      <p class="hero-sub">Rufen Sie an, schreiben Sie uns oder nutzen Sie das Formular unten. Bei dringenden Fällen sind wir rund um die Uhr erreichbar.</p>
     </div>
   </section>
+
+  <section class="kontakt">
+    <div class="wrap">
+
+      <div class="kontakt-blocks">
+        <a href="tel:015665025166" class="kontakt-block notdienst-block">
+          <span class="kontakt-label">Telefon · auch 24h-Notdienst</span>
+          <span class="kontakt-value">0156 650 251 66</span>
+        </a>
+        <a href="mailto:info@bru-fs.de" class="kontakt-block">
+          <span class="kontakt-label">E-Mail</span>
+          <span class="kontakt-value">info@bru-fs.de</span>
+        </a>
+        <a href="https://wa.me/4915665025166" target="_blank" rel="noopener" class="kontakt-block">
+          <span class="kontakt-label">WhatsApp</span>
+          <span class="kontakt-value">Chat starten</span>
+        </a>
+        <div class="kontakt-block">
+          <span class="kontakt-label">Adresse</span>
+          <span class="kontakt-value">Darmstädter Landstraße 116<br>60598 Frankfurt am Main</span>
+        </div>
+      </div>
+
+      <div class="kontakt-grid">
+        <div class="kontakt-text">
+          <p class="eyebrow">Anfrage stellen</p>
+          <h2>Erzählen Sie uns<br>von Ihrem Vorhaben.</h2>
+          <p class="hero-sub">Je genauer Ihre Angaben, desto passgenauer unser Angebot. Ihr fester Ansprechpartner meldet sich in der Regel innerhalb kurzer Zeit zurück. Mit * markierte Felder sind Pflichtfelder.</p>
+          <div class="kontakt-map">
+            <iframe title="Standort BRU GmbH" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=8.664%2C50.078%2C8.696%2C50.096&layer=mapnik&marker=50.087%2C8.680"></iframe>
+          </div>
+        </div>
+        <div class="kontakt-details">
+          <form class="kontakt-form" id="contactForm">
+            <div class="form-row">
+              <input type="text" name="name" required placeholder="Name *">
+              <input type="text" name="unternehmen" placeholder="Unternehmen (optional)">
+            </div>
+            <div class="form-row">
+              <input type="tel" name="telefon" placeholder="Telefon">
+              <input type="email" name="email" required placeholder="E-Mail *">
+            </div>
+            <select name="bereich" required>
+              <option value="" disabled selected>Welche Leistung interessiert Sie? *</option>
+              <option value="Gebäudereinigung">Gebäudereinigung</option>
+              <option value="Bau, Renovierung &amp; Sanierung">Bau, Renovierung &amp; Sanierung</option>
+              <option value="Garten &amp; Außenanlagen">Garten &amp; Außenanlagen</option>
+              <option value="Winterdienst">Winterdienst</option>
+              <option value="Hausmeisterservice">Hausmeisterservice</option>
+              <option value="Sonstiges/Notdienst">Sonstiges / Notdienst</option>
+            </select>
+            <textarea name="nachricht" rows="4" required placeholder="Ihr Anliegen *"></textarea>
+            <label class="file-field">
+              <span>Anhang (optional)</span>
+              <input type="file" name="anhang" accept="image/*,.pdf">
+              <small>Fotos oder PDF, z. B. bei Schäden oder zur genaueren Einschätzung.</small>
+            </label>
+            <label class="checkbox-field">
+              <input type="checkbox" name="datenschutz" required>
+              <span>Ich habe die <a href="datenschutz.html">Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Angaben zur Bearbeitung meiner Anfrage einverstanden. *</span>
+            </label>
+            <button type="submit" class="btn btn-primary">Anfrage senden</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
 </main>
 
 <footer class="site-footer">

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kontakt – Angebot anfragen | BRU GmbH Facility Service Frankfurt am Main</title>
+<meta name="description" content="Kontaktieren Sie BRU GmbH: Telefon, E-Mail, WhatsApp oder Formular mit Datei-Upload. 24h-Notdienst und ein fester Ansprechpartner für Frankfurt am Main.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="index.html" class="logo-link"><img src="assets/logo.png" alt="BRU GmbH Facility Service" class="logo"></a>
+    <nav class="main-nav" id="mainNav">
+      <div class="nav-item nav-has-dropdown">
+        <a href="leistungen.html" class="nav-drop-link">Leistungen</a>
+        <button type="button" class="nav-drop-toggle" aria-expanded="false" aria-label="Leistungen-Untermenü öffnen"><span class="nav-caret" aria-hidden="true">▾</span></button>
+        <div class="nav-dropdown">
+          <a href="leistungen-gebaeudereinigung.html">🧽 Gebäudereinigung</a>
+          <a href="leistungen-bau-renovierung-sanierung.html">🏗️ Bau, Renovierung &amp; Sanierung</a>
+          <a href="leistungen-garten-aussenanlagen.html">🌳 Garten &amp; Außenanlagen</a>
+          <a href="leistungen-winterdienst.html">❄️ Winterdienst</a>
+          <a href="leistungen-hausmeisterservice.html">🔧 Hausmeisterservice</a>
+          <a href="leistungen.html" class="nav-dropdown-all">Alle Leistungen im Überblick →</a>
+        </div>
+      </div>
+      <a href="index.html#ablauf">So geht's</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="kontakt.html" class="active">Kontakt</a>
+      <a href="#kontaktformular" class="nav-cta-mobile">Angebot anfragen</a>
+    </nav>
+    <div class="header-actions">
+      <a href="tel:015665025166" class="pill pill-yellow header-notdienst">
+        <span aria-hidden="true">🚨</span>
+        <span class="hn-full">24h-Notdienst</span>
+        <span class="hn-short">24h</span>
+      </a>
+      <a href="tel:015665025166" class="header-phone">
+        <span class="phone-ico">☎</span>
+        <span>0156 650 251 66</span>
+      </a>
+      <a href="#kontaktformular" class="btn btn-primary">Angebot anfragen</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="pill pill-teal center-pill">Kontakt</span>
+      <h1>Sprechen Sie uns an</h1>
+      <p class="section-sub center">Ob konkrete Anfrage, unverbindliche Beratung oder dringender Fall – wir sind für Sie da. Rufen Sie an, schreiben Sie uns per WhatsApp oder nutzen Sie das Formular mit Datei-Upload.</p>
+    </div>
+  </section>
+
+  <section class="leistungen">
+    <div class="wrap">
+      <div class="kb-grid">
+        <div class="kb-card">
+          <span class="ci-ico">📞</span>
+          <h3>Telefon</h3>
+          <a href="tel:015665025166">0156 650 251 66</a>
+        </div>
+        <div class="kb-card">
+          <span class="ci-ico">✉</span>
+          <h3>E-Mail</h3>
+          <a href="mailto:info@bru-fs.de">info@bru-fs.de</a>
+        </div>
+        <div class="kb-card">
+          <span class="ci-ico">💬</span>
+          <h3>WhatsApp</h3>
+          <a href="https://wa.me/4915665025166" target="_blank" rel="noopener">Chat starten</a>
+        </div>
+        <div class="kb-card">
+          <span class="ci-ico">📍</span>
+          <h3>Adresse</h3>
+          <span class="kb-value">Darmstädter Landstraße 116, 60598 Frankfurt am Main</span>
+        </div>
+      </div>
+
+      <div class="notice-emergency">
+        <span class="ne-icon" aria-hidden="true">🚨</span>
+        <div>
+          <strong>Dringender Fall außerhalb der Geschäftszeiten?</strong>
+          <p>Unser 24h-Notdienst ist rund um die Uhr erreichbar: <a href="tel:015665025166">0156 650 251 66</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="kontakt" id="kontaktformular">
+    <div class="wrap kontakt-grid">
+      <form class="kontakt-form" id="contactForm">
+        <label>Name
+          <input type="text" name="name" required placeholder="Ihr Name">
+        </label>
+        <label>Telefon oder E-Mail
+          <input type="text" name="kontaktweg" required placeholder="Wie erreichen wir Sie?">
+        </label>
+        <label>Unternehmen (optional)
+          <input type="text" name="unternehmen" placeholder="Firma / Hausverwaltung">
+        </label>
+        <label>Ich bin
+          <select name="kundentyp">
+            <option>Privatkunde</option>
+            <option>Gewerbekunde / Hausverwaltung</option>
+          </select>
+        </label>
+        <label>Welche Leistung interessiert Sie?
+          <select name="bereich">
+            <option>Gebäudereinigung</option>
+            <option>Bau, Renovierung &amp; Sanierung</option>
+            <option>Garten &amp; Außenanlagen</option>
+            <option>Winterdienst</option>
+            <option>Hausmeisterservice</option>
+            <option>Sonstiges/Notdienst</option>
+          </select>
+        </label>
+        <label>Ihr Anliegen
+          <textarea name="nachricht" rows="4" placeholder="Beschreiben Sie kurz, worum es geht"></textarea>
+        </label>
+        <label>Foto oder Dokument anhängen (optional)
+          <input type="file" name="anhang" accept="image/*,.pdf">
+        </label>
+        <p class="form-note">Hilfreich z. B. bei Schäden, Grundrissen oder Angebotsanfragen mit Fotobeleg.</p>
+        <label class="form-check">
+          <input type="checkbox" name="datenschutz" required>
+          <span>Ich habe die <a href="datenschutz.html">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zur Bearbeitung meiner Anfrage zu. *</span>
+        </label>
+        <button type="submit" class="btn btn-primary btn-block btn-lg">Anfrage senden</button>
+      </form>
+
+      <div class="kontakt-info">
+        <span class="pill pill-teal">So finden Sie uns</span>
+        <h2>Darmstädter Landstraße 116</h2>
+        <p class="section-sub">60598 Frankfurt am Main – zentral gelegen, gut erreichbar für Einsätze in der gesamten Rhein-Main-Region.</p>
+        <ul class="contact-list">
+          <li><span class="ci-ico">📞</span> <a href="tel:015665025166">0156 650 251 66</a></li>
+          <li><span class="ci-ico">✉</span> <a href="mailto:info@bru-fs.de">info@bru-fs.de</a></li>
+          <li><span class="ci-ico">💬</span> <a href="https://wa.me/4915665025166" target="_blank" rel="noopener">WhatsApp-Chat</a></li>
+          <li><span class="ci-ico">📍</span> Darmstädter Landstraße 116, 60598 Frankfurt am Main</li>
+        </ul>
+        <div class="map-embed">
+          <iframe title="Standort BRU GmbH" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=8.664%2C50.078%2C8.696%2C50.096&layer=mapnik&marker=50.087%2C8.680"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <img src="assets/logo-white.png" alt="BRU GmbH" class="footer-logo">
+      <p>Facility Service für Frankfurt am Main und die Region.</p>
+    </div>
+    <div>
+      <h4>Leistungen</h4>
+      <a href="leistungen-gebaeudereinigung.html">Gebäudereinigung</a>
+      <a href="leistungen-bau-renovierung-sanierung.html">Bau, Renovierung &amp; Sanierung</a>
+      <a href="leistungen-garten-aussenanlagen.html">Garten &amp; Außenanlagen</a>
+      <a href="leistungen-winterdienst.html">Winterdienst</a>
+      <a href="leistungen-hausmeisterservice.html">Hausmeisterservice</a>
+      <a href="leistungen.html">Alle Leistungen im Überblick</a>
+    </div>
+    <div>
+      <h4>Navigation</h4>
+      <a href="index.html#ablauf">So geht's</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="kontakt.html">Kontakt</a>
+    </div>
+    <div>
+      <h4>Kontakt</h4>
+      <a href="tel:015665025166">0156 650 251 66</a>
+      <a href="mailto:info@bru-fs.de">info@bru-fs.de</a>
+      <a href="https://wa.me/4915665025166" target="_blank" rel="noopener">WhatsApp</a>
+      <span>Darmstädter Landstraße 116, 60598 Frankfurt am Main</span>
+    </div>
+    <div>
+      <h4>Rechtliches</h4>
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">© 2026 BRU GmbH – Facility Service. Alle Rechte vorbehalten.</div>
+</footer>
+
+<div class="sticky-cta" id="stickyCta">
+  <a href="tel:015665025166" class="sticky-btn sticky-call" aria-label="Anrufen">☎</a>
+  <a href="https://wa.me/4915665025166" class="sticky-btn sticky-whatsapp" aria-label="WhatsApp" target="_blank" rel="noopener">💬</a>
+  <a href="#kontaktformular" class="sticky-btn sticky-main">Zum Formular</a>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

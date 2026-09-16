@@ -16,6 +16,27 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // Nav dropdown ("Leistungen"): click-to-toggle, works on desktop and inside the mobile overlay menu
+  var dropdownItems = document.querySelectorAll('.nav-has-dropdown');
+  dropdownItems.forEach(function (item) {
+    var caret = item.querySelector('.nav-caret');
+    if (!caret) return;
+    caret.addEventListener('click', function (e) {
+      e.preventDefault();
+      var isOpen = item.classList.toggle('open');
+      caret.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  });
+  document.addEventListener('click', function (e) {
+    dropdownItems.forEach(function (item) {
+      if (item.classList.contains('open') && !item.contains(e.target)) {
+        item.classList.remove('open');
+        var caret = item.querySelector('.nav-caret');
+        if (caret) caret.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+
   // Gallery lightbox
   var lightbox = document.getElementById('lightbox');
   var lightboxImg = document.getElementById('lightboxImg');
@@ -51,6 +72,19 @@ document.addEventListener('DOMContentLoaded', function () {
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') closeLightbox();
   });
+
+  // Kontaktformular: Leistung per Query-Parameter vorbelegen (z. B. kontakt.html?leistung=Winterdienst)
+  var params = new URLSearchParams(location.search);
+  var preselect = params.get('leistung');
+  if (preselect) {
+    var select = document.querySelector('select[name="bereich"]');
+    if (select) {
+      var match = [].slice.call(select.options).find(function (o) {
+        return o.value === preselect || o.textContent.trim() === preselect;
+      });
+      if (match) select.value = match.value;
+    }
+  }
 
   // Contact form: no backend yet, show inline confirmation
   var form = document.getElementById('contactForm');

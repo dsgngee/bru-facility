@@ -14,8 +14,39 @@
   <div class="wrap header-inner">
     <a href="index.html" class="logo-link"><img src="assets/logo.png" alt="BRU GmbH Facility Service" class="logo"></a>
     <nav class="main-nav" id="mainNav">
-      <a href="index.html">Zur Startseite</a>
+      <div class="nav-item nav-has-dropdown">
+        <a href="leistungen.html" class="nav-drop-link">Leistungen</a>
+        <button type="button" class="nav-drop-toggle" aria-expanded="false" aria-label="Leistungen-Untermenü öffnen"><span class="nav-caret" aria-hidden="true">▾</span></button>
+        <div class="nav-dropdown">
+          <a href="leistungen-gebaeudereinigung.html">🧽 Gebäudereinigung</a>
+          <a href="leistungen-bau-renovierung-sanierung.html">🏗️ Bau, Renovierung &amp; Sanierung</a>
+          <a href="leistungen-garten-aussenanlagen.html">🌳 Garten &amp; Außenanlagen</a>
+          <a href="leistungen-winterdienst.html">❄️ Winterdienst</a>
+          <a href="leistungen-hausmeisterservice.html">🔧 Hausmeisterservice</a>
+          <a href="leistungen.html" class="nav-dropdown-all">Alle Leistungen im Überblick →</a>
+        </div>
+      </div>
+      <a href="index.html#ablauf">So geht's</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="kontakt.html">Kontakt</a>
+      <a href="kontakt.html" class="nav-cta-mobile">Angebot anfragen</a>
     </nav>
+    <div class="header-actions">
+      <a href="tel:015665025166" class="pill pill-yellow header-notdienst">
+        <span aria-hidden="true">🚨</span>
+        <span class="hn-full">24h-Notdienst</span>
+        <span class="hn-short">24h</span>
+      </a>
+      <a href="tel:015665025166" class="header-phone">
+        <span class="phone-ico">☎</span>
+        <span>0156 650 251 66</span>
+      </a>
+      <a href="kontakt.html" class="btn btn-primary">Angebot anfragen</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 
@@ -48,8 +79,49 @@
 </main>
 
 <footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <img src="assets/logo-white.png" alt="BRU GmbH" class="footer-logo">
+      <p>Facility Service für Frankfurt am Main und die Region.</p>
+    </div>
+    <div>
+      <h4>Leistungen</h4>
+      <a href="leistungen-gebaeudereinigung.html">Gebäudereinigung</a>
+      <a href="leistungen-bau-renovierung-sanierung.html">Bau, Renovierung &amp; Sanierung</a>
+      <a href="leistungen-garten-aussenanlagen.html">Garten &amp; Außenanlagen</a>
+      <a href="leistungen-winterdienst.html">Winterdienst</a>
+      <a href="leistungen-hausmeisterservice.html">Hausmeisterservice</a>
+      <a href="leistungen.html">Alle Leistungen im Überblick</a>
+    </div>
+    <div>
+      <h4>Navigation</h4>
+      <a href="index.html#ablauf">So geht's</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="kontakt.html">Kontakt</a>
+    </div>
+    <div>
+      <h4>Kontakt</h4>
+      <a href="tel:015665025166">0156 650 251 66</a>
+      <a href="mailto:info@bru-fs.de">info@bru-fs.de</a>
+      <a href="https://wa.me/4915665025166" target="_blank" rel="noopener">WhatsApp</a>
+      <span>Darmstädter Landstraße 116, 60598 Frankfurt am Main</span>
+    </div>
+    <div>
+      <h4>Rechtliches</h4>
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+    </div>
+  </div>
   <div class="wrap footer-bottom">© 2026 BRU GmbH – Facility Service. Alle Rechte vorbehalten.</div>
 </footer>
 
+<div class="sticky-cta" id="stickyCta">
+  <a href="tel:015665025166" class="sticky-btn sticky-call" aria-label="Anrufen">☎</a>
+  <a href="https://wa.me/4915665025166" class="sticky-btn sticky-whatsapp" aria-label="WhatsApp" target="_blank" rel="noopener">💬</a>
+  <a href="kontakt.html" class="sticky-btn sticky-main">Angebot anfragen</a>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>

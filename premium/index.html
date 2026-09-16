@@ -14,14 +14,30 @@
 
 <header class="site-header" id="top">
   <div class="wrap header-inner">
-    <a href="#top" class="logo-link"><img src="assets/logo-white.png" alt="BRU GmbH Facility Service" class="logo"></a>
+    <a href="index.html" class="logo-link"><img src="assets/logo-white.png" alt="BRU GmbH Facility Service" class="logo"></a>
     <nav class="main-nav" id="mainNav">
-      <a href="#leistungen"><span>01</span> Leistungen</a>
+      <div class="nav-item nav-has-dropdown">
+        <a href="leistungen.html" class="nav-parent-link"><span>01</span> Leistungen</a>
+        <button type="button" class="nav-caret" aria-label="Untermenü Leistungen öffnen" aria-expanded="false">
+          <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-dropdown">
+          <a href="leistungen-gebaeudereinigung.html">Gebäudereinigung</a>
+          <a href="leistungen-bau-renovierung-sanierung.html">Bau, Renovierung &amp; Sanierung</a>
+          <a href="leistungen-garten-aussenanlagen.html">Garten &amp; Außenanlagen</a>
+          <a href="leistungen-winterdienst.html">Winterdienst</a>
+          <a href="leistungen-hausmeisterservice.html">Hausmeisterservice</a>
+          <a href="leistungen.html" class="nav-dropdown-all">Alle Leistungen im Überblick</a>
+        </div>
+      </div>
       <a href="#galerie"><span>02</span> Arbeiten</a>
-      <a href="#ueber-uns"><span>03</span> Über uns</a>
-      <a href="#kontakt"><span>04</span> Kontakt</a>
+      <a href="ueber-uns.html"><span>03</span> Über uns</a>
+      <a href="kontakt.html"><span>04</span> Kontakt</a>
     </nav>
-    <a href="tel:015665025166" class="header-phone">0156 650 251 66</a>
+    <div class="header-right">
+      <span class="notdienst-badge">24h-Notdienst</span>
+      <a href="tel:015665025166" class="header-phone">0156 650 251 66</a>
+    </div>
     <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
   </div>
 </header>
@@ -37,7 +53,7 @@
       <h1>Bau. Reinigung.<br>Umfeldbetreuung.</h1>
       <p class="hero-sub">Ein Partner für Gebäude, Außenanlagen und alles dazwischen — seit über zehn Jahren, mit zertifiziertem Fachpersonal und festem Ansprechpartner.</p>
       <div class="hero-actions">
-        <a href="#kontakt" class="btn btn-primary">Anfrage stellen</a>
+        <a href="kontakt.html" class="btn btn-primary">Anfrage stellen</a>
         <a href="#leistungen" class="btn btn-outline">Leistungen ansehen</a>
       </div>
     </div>
@@ -88,6 +104,7 @@
           <ul class="tag-list">
             <li>Privathaushalte</li><li>Büros &amp; Gewerbe</li><li>Fitnessstudios</li><li>Treppenhäuser</li><li>Praxen &amp; Kliniken</li><li>Fensterreinigung</li><li>Gastronomie &amp; Hotellerie</li><li>Schulen &amp; Kitas</li><li>Sanitäranlagen</li><li>Bauendreinigung</li><li>Teppich- &amp; Polsterreinigung</li><li>Desinfektionsreinigung</li><li>Industriereinigung</li><li>Fassadenreinigung</li><li>Entrümpelung</li>
           </ul>
+          <a href="leistungen-gebaeudereinigung.html" class="service-more">Mehr erfahren <span aria-hidden="true">→</span></a>
         </div>
       </article>
 
@@ -99,6 +116,7 @@
           <ul class="tag-list">
             <li>Neubau-Unterstützung</li><li>Renovierung</li><li>Trockenbau</li><li>Maler- &amp; Tapezierarbeiten</li><li>Fliesen- &amp; Bodenverlegung</li><li>Elektroinstallation</li><li>Klimaanlagenmontage</li><li>Küchenmontage</li><li>Sanierung</li><li>Türen- &amp; Fenstermontage</li><li>Boden- &amp; Parkettverlegung</li><li>Abbrucharbeiten</li><li>Dacharbeiten</li><li>Fassadenarbeiten</li>
           </ul>
+          <a href="leistungen-bau-renovierung-sanierung.html" class="service-more">Mehr erfahren <span aria-hidden="true">→</span></a>
         </div>
       </article>
 
@@ -110,6 +128,7 @@
           <ul class="tag-list">
             <li>Pflasterarbeiten</li><li>Kunstrasen</li><li>Neubepflanzung</li><li>Rasenschnitt</li><li>Heckenschnitt</li><li>Bewässerung</li><li>Gartenpflege im Abo</li><li>Laubentsorgung</li><li>Teichpflege</li><li>Baumschnitt</li><li>Winterfest machen</li>
           </ul>
+          <a href="leistungen-garten-aussenanlagen.html" class="service-more">Mehr erfahren <span aria-hidden="true">→</span></a>
         </div>
       </article>
 
@@ -121,6 +140,7 @@
           <ul class="tag-list">
             <li>Schneeräumung</li><li>Streudienst</li><li>Räum- &amp; Streupläne</li><li>Rufbereitschaft</li><li>Parkplatzräumung</li><li>Dokumentation</li><li>Streugutlagerung</li><li>Notfall-Räumdienst</li><li>Saisonverträge</li>
           </ul>
+          <a href="leistungen-winterdienst.html" class="service-more">Mehr erfahren <span aria-hidden="true">→</span></a>
         </div>
       </article>
 
@@ -132,9 +152,48 @@
           <ul class="tag-list">
             <li>Kontrollgänge</li><li>Kleinreparaturen</li><li>Handwerker-Koordination</li><li>Mülltonnenmanagement</li><li>Fester Ansprechpartner</li><li>Zutrittsmanagement</li><li>Anlagenprüfung</li><li>Notfälle</li><li>Technische Wartung</li>
           </ul>
+          <a href="leistungen-hausmeisterservice.html" class="service-more">Mehr erfahren <span aria-hidden="true">→</span></a>
         </div>
       </article>
 
+    </div>
+  </section>
+
+  <section class="notdienst-band">
+    <div class="wrap notdienst-inner">
+      <div class="notdienst-text">
+        <p class="eyebrow">24h-Notdienst</p>
+        <h2>Wenn es schnell<br>gehen muss.</h2>
+        <p class="hero-sub">Rohrbruch, Sturmschaden oder akuter Räumbedarf: In dringenden Fällen sind wir rund um die Uhr erreichbar — für Bestandskunden ebenso wie für neue Anfragen mit unmittelbarem Handlungsbedarf.</p>
+      </div>
+      <a href="tel:015665025166" class="notdienst-number">
+        <span class="notdienst-label">Sofort erreichbar</span>
+        <span class="notdienst-digits">0156 650 251 66</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="ablauf" id="ablauf">
+    <div class="wrap">
+      <p class="eyebrow">Wie wir arbeiten</p>
+      <h2>Von der Anfrage<br>bis zur Umsetzung.</h2>
+      <div class="ablauf-grid">
+        <div class="ablauf-step">
+          <span class="ablauf-num">01</span>
+          <h3>Kontaktaufnahme</h3>
+          <p>Sie schildern uns Ihr Anliegen — telefonisch, per WhatsApp, E-Mail oder über unser Formular. Wir melden uns kurzfristig zurück.</p>
+        </div>
+        <div class="ablauf-step">
+          <span class="ablauf-num">02</span>
+          <h3>Analyse &amp; Angebot</h3>
+          <p>Wir verschaffen uns vor Ort oder im persönlichen Gespräch ein genaues Bild und erstellen ein maßgeschneidertes, transparentes Angebot.</p>
+        </div>
+        <div class="ablauf-step">
+          <span class="ablauf-num">03</span>
+          <h3>Umsetzung</h3>
+          <p>Ihr fester Ansprechpartner begleitet die Umsetzung von Anfang bis Ende — zuverlässig, termintreu und mit kurzen Wegen.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -174,34 +233,91 @@
     </div>
   </section>
 
-  <section class="kontakt" id="kontakt">
-    <div class="wrap kontakt-grid">
-      <div class="kontakt-text">
+  <section class="warum">
+    <div class="wrap">
+      <p class="eyebrow">Warum BRU GmbH</p>
+      <h2>Vier Gründe für eine<br>langfristige Zusammenarbeit.</h2>
+      <div class="warum-grid">
+        <div class="warum-item">
+          <span class="warum-num">01</span>
+          <h3>Ein Partner, fünf Bereiche</h3>
+          <p>Bau, Reinigung, Garten, Winterdienst und Hausmeisterservice aus einer Hand — ohne Reibungsverluste zwischen mehreren Dienstleistern.</p>
+        </div>
+        <div class="warum-item">
+          <span class="warum-num">02</span>
+          <h3>Fester Ansprechpartner</h3>
+          <p>Sie sprechen immer mit derselben Person — kein Callcenter, kein ständiger Wechsel, sondern jemand, der Ihr Objekt kennt.</p>
+        </div>
+        <div class="warum-item">
+          <span class="warum-num">03</span>
+          <h3>Zertifiziertes Fachpersonal</h3>
+          <p>Kontinuierliche Weiterbildung und über zehn Jahre Erfahrung stehen für eine Qualität, die sich auch im Detail zeigt.</p>
+        </div>
+        <div class="warum-item">
+          <span class="warum-num">04</span>
+          <h3>24h-Notdienst</h3>
+          <p>Für dringende Fälle sind wir rund um die Uhr erreichbar — ein Versprechen, das nur wenige Anbieter in dieser Form halten.</p>
+        </div>
+      </div>
+      <div class="warum-cta">
+        <a href="kontakt.html" class="btn btn-primary">Jetzt Kontakt aufnehmen</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="team-teaser">
+    <div class="wrap team-teaser-grid">
+      <div class="team-teaser-media">
+        <img src="assets/handshake.jpg" alt="Persönliche Beratung und Zusammenarbeit bei BRU GmbH">
+      </div>
+      <div class="team-teaser-content">
+        <p class="eyebrow">Das Team</p>
+        <h2>Menschen, die anpacken —<br>nicht nur versprechen.</h2>
+        <p>Unser Team bringt zertifizierte Qualifikation, jahrelange Praxiserfahrung und eine ehrliche Arbeitsweise mit. Wir reden nicht nur über Qualität, wir liefern sie — Tag für Tag, auf jeder Baustelle und in jedem betreuten Objekt.</p>
+        <a href="ueber-uns.html" class="btn btn-outline">Mehr über uns erfahren</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" id="faq">
+    <div class="wrap">
+      <p class="eyebrow">Häufige Fragen</p>
+      <h2>Gut zu wissen.</h2>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>Welches Gebiet deckt ihr ab?</summary>
+          <p>Unser Kerngebiet ist Frankfurt am Main und die Rhein-Main-Region. Bei größeren Gewerbeobjekten sind wir auf Anfrage auch deutschlandweit im Einsatz.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Gibt es feste Verträge/Abos (z. B. Winterdienst, Gartenpflege)?</summary>
+          <p>Ja. Für Winterdienst und Gartenpflege bieten wir Saisonverträge und regelmäßige Pflegeabos an — abgestimmt auf Ihr Objekt und mit klar geregelten Leistungszeiten.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Wie schnell seid ihr im Notfall vor Ort?</summary>
+          <p>Bei dringenden Fällen wie Sturmschäden, akutem Räumbedarf oder Notfällen im Hausmeisterservice reagieren wir kurzfristig — unser 24h-Notdienst ist rund um die Uhr erreichbar.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Arbeitet ihr auch für Privathaushalte?</summary>
+          <p>Ja, ausdrücklich. Privathaushalte und Gewerbekunden sind uns gleichermaßen wichtig — vom einzelnen Fensterputz bis zur Betreuung ganzer Liegenschaften.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Wie läuft eine Anfrage ab?</summary>
+          <p>Sie kontaktieren uns telefonisch, per WhatsApp, E-Mail oder Formular. Wir verschaffen uns kurzfristig ein genaues Bild Ihres Anliegens und erstellen ein transparentes, maßgeschneidertes Angebot.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="kontakt-cta" id="kontakt">
+    <div class="wrap kontakt-cta-inner">
+      <div class="kontakt-cta-text">
         <p class="eyebrow">Kontakt</p>
         <h2>Sprechen wir<br>über Ihr Projekt.</h2>
-        <p class="hero-sub">Rufen Sie an, schreiben Sie uns — oder nutzen Sie das Formular. Bei dringenden Fällen sind wir rund um die Uhr erreichbar.</p>
+        <p class="hero-sub">Rufen Sie an, schreiben Sie uns oder stellen Sie Ihre Anfrage über unser ausführliches Formular mit Leistungsauswahl und Datei-Upload — Ihr fester Ansprechpartner meldet sich kurzfristig zurück.</p>
       </div>
-      <div class="kontakt-details">
-        <a href="tel:015665025166" class="kontakt-line">
-          <span class="kontakt-label">Telefon</span>
-          <span class="kontakt-value">0156 650 251 66</span>
-        </a>
-        <a href="mailto:info@bru-fs.de" class="kontakt-line">
-          <span class="kontakt-label">E-Mail</span>
-          <span class="kontakt-value">info@bru-fs.de</span>
-        </a>
-        <div class="kontakt-line">
-          <span class="kontakt-label">Adresse</span>
-          <span class="kontakt-value">Darmstädter Landstraße 116<br>60598 Frankfurt am Main</span>
-        </div>
-        <form class="kontakt-form" id="contactForm">
-          <div class="form-row">
-            <input type="text" name="name" required placeholder="Name">
-            <input type="text" name="kontaktweg" required placeholder="Telefon oder E-Mail">
-          </div>
-          <textarea name="nachricht" rows="3" placeholder="Kurz zu Ihrem Anliegen …"></textarea>
-          <button type="submit" class="btn btn-primary">Anfrage senden</button>
-        </form>
+      <div class="kontakt-cta-actions">
+        <a href="kontakt.html" class="btn btn-primary">Zum Kontaktformular</a>
+        <a href="tel:015665025166" class="btn btn-outline">0156 650 251 66 anrufen</a>
       </div>
     </div>
   </section>
@@ -215,22 +331,28 @@
       <p>Bau · Reinigung · Umfeldbetreuung<br>Frankfurt am Main und die Region.</p>
     </div>
     <div class="footer-col">
+      <h4>Leistungen</h4>
+      <a href="leistungen.html">Alle Leistungen</a>
+      <a href="leistungen-gebaeudereinigung.html">Gebäudereinigung</a>
+      <a href="leistungen-bau-renovierung-sanierung.html">Bau, Renovierung &amp; Sanierung</a>
+      <a href="leistungen-garten-aussenanlagen.html">Garten &amp; Außenanlagen</a>
+      <a href="leistungen-winterdienst.html">Winterdienst</a>
+      <a href="leistungen-hausmeisterservice.html">Hausmeisterservice</a>
+    </div>
+    <div class="footer-col">
       <h4>Navigation</h4>
-      <a href="#leistungen">Leistungen</a>
       <a href="#galerie">Arbeiten</a>
-      <a href="#ueber-uns">Über uns</a>
-      <a href="#kontakt">Kontakt</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="kontakt.html">Kontakt</a>
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
     </div>
     <div class="footer-col">
       <h4>Kontakt</h4>
       <a href="tel:015665025166">0156 650 251 66</a>
       <a href="mailto:info@bru-fs.de">info@bru-fs.de</a>
+      <a href="https://wa.me/4915665025166" target="_blank" rel="noopener">WhatsApp</a>
       <span>Darmstädter Landstraße 116, 60598 Frankfurt am Main</span>
-    </div>
-    <div class="footer-col">
-      <h4>Rechtliches</h4>
-      <a href="impressum.html">Impressum</a>
-      <a href="datenschutz.html">Datenschutz</a>
     </div>
   </div>
   <div class="wrap footer-bottom">© 2026 BRU GmbH — Facility Service. Alle Rechte vorbehalten.</div>
@@ -241,6 +363,10 @@
   <img src="" alt="" id="lightboxImg">
   <p class="lightbox-caption" id="lightboxCaption"></p>
 </div>
+
+<a href="https://wa.me/4915665025166" class="whatsapp-fab" target="_blank" rel="noopener" aria-label="Per WhatsApp kontaktieren">
+  <svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M16.01 3C9.38 3 4 8.38 4 15.01c0 2.38.68 4.6 1.86 6.49L4 29l7.68-1.83a11.9 11.9 0 0 0 4.33.82h.01c6.63 0 12.01-5.38 12.01-12.01C28.02 8.38 22.64 3 16.01 3Zm0 21.8h-.01a9.8 9.8 0 0 1-4.99-1.37l-.36-.21-4.56 1.09 1.11-4.45-.24-.37a9.75 9.75 0 0 1-1.5-5.19c0-5.4 4.4-9.79 9.8-9.79 2.62 0 5.08 1.02 6.93 2.87a9.72 9.72 0 0 1 2.86 6.92c0 5.4-4.4 9.79-9.79 9.79Zm5.35-7.33c-.29-.15-1.73-.86-2-.95-.27-.1-.46-.15-.66.15-.2.29-.76.95-.93 1.15-.17.2-.34.22-.63.07-.29-.15-1.24-.46-2.36-1.46-.87-.78-1.46-1.74-1.63-2.03-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.51.15-.17.2-.29.29-.49.1-.2.05-.37-.02-.51-.07-.15-.66-1.6-.91-2.19-.24-.58-.48-.5-.66-.51-.17-.01-.37-.01-.56-.01-.2 0-.51.07-.78.37-.27.29-1.02 1-1.02 2.44 0 1.44 1.05 2.83 1.19 3.02.15.2 2.06 3.14 4.99 4.4.7.3 1.24.48 1.67.61.7.22 1.34.19 1.84.12.56-.08 1.73-.71 1.97-1.39.24-.68.24-1.27.17-1.39-.07-.12-.26-.2-.55-.34Z"/></svg>
+</a>
 
 <script src="script.js"></script>
 </body>
