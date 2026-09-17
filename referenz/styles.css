@@ -438,15 +438,18 @@ section { padding: 88px 0; }
 /* ---------- Kontaktformular ---------- */
 .kontakt { background: var(--bg-soft); }
 .kontakt-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items: start; }
+.kontakt-info { min-width: 0; }
 .kontakt-form {
   background: var(--white); border-radius: var(--radius-lg);
   padding: 34px; display: flex; flex-direction: column; gap: 16px;
   box-shadow: var(--shadow-sm);
+  min-width: 0;
 }
-.kontakt-form label { font-weight: 700; font-size: 0.88rem; color: var(--navy); display: flex; flex-direction: column; gap: 6px; }
+.kontakt-form label { font-weight: 700; font-size: 0.88rem; color: var(--navy); display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .kontakt-form input, .kontakt-form select, .kontakt-form textarea {
   font: inherit; padding: 12px 14px; border-radius: var(--radius-sm);
   border: 1px solid var(--line); background: var(--bg-soft); color: var(--ink);
+  width: 100%; min-width: 0;
 }
 .kontakt-form input:focus, .kontakt-form select:focus, .kontakt-form textarea:focus { outline: 2px solid var(--blue); outline-offset: 1px; }
 .form-note { font-size: 0.8rem; color: var(--gray-light); margin: -6px 0 0; }

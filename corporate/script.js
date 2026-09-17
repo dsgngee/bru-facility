@@ -7,8 +7,14 @@ if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && window.Len
   })();
 }
 
-document.getElementById('navToggle').addEventListener('click', () => {
-  document.getElementById('mainNav').classList.toggle('open');
+const navToggle = document.getElementById('navToggle');
+const mainNav = document.getElementById('mainNav');
+navToggle.addEventListener('click', () => {
+  const isOpen = mainNav.classList.toggle('open');
+  if (isOpen) {
+    const header = document.querySelector('.site-header');
+    mainNav.style.top = header.getBoundingClientRect().bottom + 'px';
+  }
 });
 
 // Leistungen-Dropdown im Hauptmenü (Klick, funktioniert auf Desktop und Mobile)

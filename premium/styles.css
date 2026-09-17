@@ -113,14 +113,25 @@ p { margin: 0 0 14px; color: var(--ink-dim); }
   gap: 6px;
   transition: color 0.2s cubic-bezier(0.22, 1, 0.36, 1), transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.main-nav a span { color: var(--orange); font-size: 0.75rem; }
 .main-nav a:hover { color: var(--ink); transform: translateY(-1px); }
 .header-right { display: flex; align-items: center; gap: 18px; }
-.header-phone {
-  font-family: var(--serif);
-  font-size: 1.05rem;
-  color: var(--yellow);
+.header-book-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 11px 24px;
+  border-radius: 2px;
+  background: var(--orange);
+  color: #211002;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
   white-space: nowrap;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.header-book-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -10px rgba(251,146,60,0.5);
 }
 .notdienst-badge {
   font-size: 0.68rem;
@@ -140,8 +151,6 @@ p { margin: 0 0 14px; color: var(--ink-dim); }
 .nav-parent-link { display: inline-flex; gap: 6px; }
 .main-nav a.active,
 .main-nav a.nav-parent-link.active { color: var(--ink); }
-.main-nav a.active span,
-.main-nav a.nav-parent-link.active span { color: var(--teal-light); }
 .nav-caret {
   background: none;
   border: none;
@@ -265,7 +274,12 @@ p { margin: 0 0 14px; color: var(--ink-dim); }
 
 /* ===== Intro ===== */
 .intro { padding: 120px 0 100px; background: var(--bg); }
-.intro-grid { max-width: 900px; }
+.intro-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 60px;
+  align-items: center;
+}
 .intro-text {
   font-family: var(--serif);
   font-size: clamp(1.4rem, 2.4vw, 2rem);
@@ -277,7 +291,7 @@ p { margin: 0 0 14px; color: var(--ink-dim); }
 .intro-text strong { color: var(--yellow); font-weight: 500; }
 .intro-facts {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   border-top: 1px solid var(--line);
   padding-top: 36px;
@@ -285,6 +299,18 @@ p { margin: 0 0 14px; color: var(--ink-dim); }
 .fact { display: flex; flex-direction: column; gap: 6px; }
 .fact strong { font-family: var(--serif); font-size: 2.2rem; color: var(--teal-light); font-weight: 500; }
 .fact span { font-size: 0.85rem; color: var(--ink-dim); text-transform: uppercase; letter-spacing: 0.08em; }
+
+.intro-collage { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.intro-collage-col { display: flex; flex-direction: column; gap: 16px; }
+.intro-collage-col-offset { margin-top: 15%; }
+.intro-collage-item { position: relative; overflow: hidden; border-radius: 2px; background: var(--bg-3); aspect-ratio: 3 / 4; }
+.intro-collage-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: saturate(0.9) brightness(0.88);
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+.intro-collage-item:hover img { transform: scale(1.05); filter: saturate(1.05) brightness(0.95); }
 
 /* ===== Leistungen ===== */
 .leistungen { background: var(--bg-2); padding: 110px 0 40px; }
@@ -333,7 +359,7 @@ p { margin: 0 0 14px; color: var(--ink-dim); }
   gap: 9px;
 }
 .tag-list li {
-  font-size: 0.82rem;
+  font-size: 1rem;
   color: var(--ink-dim);
   border: 1px solid var(--line);
   padding: 7px 14px;
@@ -399,6 +425,86 @@ p { margin: 0 0 14px; color: var(--ink-dim); }
 }
 .gallery-item:hover::after { opacity: 1; }
 
+/* ===== Rezensionen — gemeinsame Bausteine ===== */
+.rez-tag {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--orange);
+  font-weight: 600;
+  border: 1px solid rgba(251,146,60,0.35);
+  border-radius: 999px;
+  padding: 5px 13px;
+  margin-bottom: 14px;
+}
+.rez-name { margin: 0; display: flex; flex-direction: column; gap: 3px; }
+.rez-name strong { font-family: var(--serif); font-size: 1rem; color: var(--ink); font-weight: 500; }
+.rez-name span { font-size: 0.8rem; color: var(--ink-dim); }
+
+/* ===== Rezensionen: Feature-Karussell ===== */
+.rez-feature { background: var(--bg-3); padding: 80px 0; }
+.rez-feature h2 { color: var(--ink); }
+.rez-feature-frame { position: relative; margin-top: 40px; }
+.rez-feature-viewport {
+  overflow: hidden;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+}
+.rez-feature-track {
+  display: flex;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.rez-feature-slide {
+  flex: 0 0 100%;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  min-height: 340px;
+}
+.rez-feature-media { position: relative; overflow: hidden; }
+.rez-feature-media img { width: 100%; height: 100%; object-fit: cover; }
+.rez-feature-body { padding: 40px 48px; display: flex; flex-direction: column; justify-content: center; }
+.rez-feature-quote {
+  margin: 0 0 20px;
+  font-family: var(--serif);
+  font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+  font-weight: 300;
+  color: var(--ink);
+  line-height: 1.45;
+}
+.rez-feature-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  z-index: 2;
+}
+.rez-feature-arrow:hover { border-color: var(--teal-light); background: rgba(63,182,172,0.1); }
+.rez-feature-arrow.prev { left: -22px; }
+.rez-feature-arrow.next { right: -22px; }
+.rez-feature-dots { display: flex; justify-content: center; gap: 10px; margin-top: 26px; }
+.rez-feature-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: var(--line);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.rez-feature-dot.active { background: var(--orange); transform: scale(1.35); }
+
 /* ===== Notdienst band ===== */
 .notdienst-band { background: var(--bg-3); padding: 90px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .notdienst-inner {
@@ -428,6 +534,7 @@ p { margin: 0 0 14px; color: var(--ink-dim); }
   font-weight: 600;
 }
 .notdienst-digits { font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2.4rem); color: var(--ink); }
+.notdienst-address { font-size: 0.82rem; color: var(--ink-dim); }
 
 /* ===== Ablauf (Wie wir arbeiten) ===== */
 .ablauf { background: var(--bg); padding: 110px 0; }
@@ -440,13 +547,12 @@ p { margin: 0 0 14px; color: var(--ink-dim); }
   border-top: 1px solid var(--line);
   padding-top: 46px;
 }
-.ablauf-num {
+.ablauf-icon {
   display: block;
-  font-family: var(--serif);
-  font-size: 1.3rem;
   color: var(--orange);
-  margin-bottom: 18px;
+  margin-bottom: 26px;
 }
+.ablauf-icon svg { display: block; }
 .ablauf-step h3 { color: var(--ink); }
 .ablauf-step p { margin-bottom: 0; }
 
@@ -476,7 +582,8 @@ p { margin: 0 0 14px; color: var(--ink-dim); }
   border-top: 1px solid var(--line);
   padding-top: 46px;
 }
-.warum-num { display: block; font-family: var(--serif); font-size: 1.3rem; color: var(--teal-light); margin-bottom: 18px; }
+.warum-icon { display: block; color: var(--teal-light); margin-bottom: 26px; }
+.warum-icon svg { display: block; }
 .warum-item h3 { color: var(--ink); font-size: 1.2rem; }
 .warum-item p { font-size: 0.92rem; margin-bottom: 0; }
 .warum-cta { margin-top: 56px; }
@@ -874,7 +981,7 @@ a.kontakt-block:hover { border-color: rgba(63,182,172,0.5); transform: translate
 
 /* ===== Legal pages ===== */
 .legal-page { padding: 64px 0 90px; max-width: 720px; margin: 0 auto; color: var(--ink-dim); }
-.legal-page h1 { color: var(--ink); margin-bottom: 28px; }
+.legal-page h1 { color: var(--ink); margin-bottom: 28px; overflow-wrap: break-word; hyphens: auto; }
 .legal-page h2 { color: var(--ink); font-size: 1.1rem; margin-top: 34px; font-family: var(--serif); }
 .legal-page a { color: var(--teal-light); text-decoration: underline; }
 .legal-page em { color: var(--ink-dim); }
@@ -911,9 +1018,17 @@ a.kontakt-block:hover { border-color: rgba(63,182,172,0.5); transform: translate
   .service-row-media { height: 340px; }
   .service-row-media img { min-height: 320px; }
   .service-row-content { padding: 50px 32px; }
-  .intro-facts { grid-template-columns: repeat(2, 1fr); }
+  .tag-list li { font-size: 0.82rem; }
+  .intro-grid { grid-template-columns: 1fr; gap: 50px; }
+  .intro-collage { max-width: 500px; }
+  .intro-facts { grid-template-columns: repeat(3, 1fr); }
   .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 200px; }
   .gallery-item.span-2 { grid-column: span 2; grid-row: span 1; }
+  .rez-feature-slide { grid-template-columns: 1fr; min-height: 0; }
+  .rez-feature-media { height: 220px; }
+  .rez-feature-body { padding: 32px 36px; }
+  .rez-feature-arrow.prev { left: 6px; }
+  .rez-feature-arrow.next { right: 6px; }
   .kontakt-grid { grid-template-columns: 1fr; gap: 50px; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 
@@ -959,11 +1074,16 @@ a.kontakt-block:hover { border-color: rgba(63,182,172,0.5); transform: translate
   .hero-actions { flex-direction: column; align-items: stretch; }
   .hero-scroll { display: none; }
   .intro { padding: 80px 0 70px; }
+  .intro-collage { max-width: none; gap: 12px; }
+  .intro-collage-col { gap: 12px; }
+  .intro-collage-col-offset { margin-top: 12%; }
   .intro-facts { grid-template-columns: repeat(2, 1fr); gap: 30px 20px; }
   .leistungen { padding: 80px 0 20px; }
   .service-row-content { padding: 40px 20px; }
   .galerie { padding: 80px 0; }
   .gallery-grid { padding: 0 20px; grid-template-columns: 1fr 1fr; }
+  .rez-feature { padding: 60px 0; }
+  .rez-feature-body { padding: 26px 22px; }
   .quote-band { padding: 60px 0; }
   .kontakt { padding: 80px 0; }
   .form-row { grid-template-columns: 1fr; }
@@ -972,7 +1092,7 @@ a.kontakt-block:hover { border-color: rgba(63,182,172,0.5); transform: translate
 
   .notdienst-badge { display: none; }
   .header-right { gap: 12px; }
-  .header-phone { font-size: 0.92rem; }
+  .header-book-btn { padding: 9px 16px; font-size: 0.76rem; }
   .notdienst-band { padding: 60px 0; }
   .notdienst-number { padding: 22px 24px; }
   .ablauf { padding: 70px 0; }

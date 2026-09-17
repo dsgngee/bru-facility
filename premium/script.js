@@ -95,6 +95,45 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  // Rezensionen: Feature-Karussell (Slides, Punkte, Swipe)
+  var rezFeatureTrack = document.getElementById('rezFeatureTrack');
+  if (rezFeatureTrack) {
+    var rezSlides = rezFeatureTrack.querySelectorAll('.rez-feature-slide');
+    var rezDots = document.getElementById('rezFeatureDots');
+    var rezIndex = 0;
+
+    rezSlides.forEach(function (_, i) {
+      var dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'rez-feature-dot';
+      dot.setAttribute('aria-label', 'Rezension ' + (i + 1) + ' von ' + rezSlides.length + ' anzeigen');
+      dot.addEventListener('click', function () { goToRezSlide(i); });
+      rezDots.appendChild(dot);
+    });
+    var rezDotEls = rezDots.querySelectorAll('.rez-feature-dot');
+
+    function goToRezSlide(i) {
+      rezIndex = (i + rezSlides.length) % rezSlides.length;
+      rezFeatureTrack.style.transform = 'translateX(-' + (rezIndex * 100) + '%)';
+      rezDotEls.forEach(function (d, di) { d.classList.toggle('active', di === rezIndex); });
+    }
+    goToRezSlide(0);
+
+    var rezFeaturePrev = document.querySelector('[data-rez-feature-prev]');
+    var rezFeatureNext = document.querySelector('[data-rez-feature-next]');
+    if (rezFeaturePrev) rezFeaturePrev.addEventListener('click', function () { goToRezSlide(rezIndex - 1); });
+    if (rezFeatureNext) rezFeatureNext.addEventListener('click', function () { goToRezSlide(rezIndex + 1); });
+
+    var rezTouchStartX = null;
+    rezFeatureTrack.addEventListener('touchstart', function (e) { rezTouchStartX = e.touches[0].clientX; }, { passive: true });
+    rezFeatureTrack.addEventListener('touchend', function (e) {
+      if (rezTouchStartX === null) return;
+      var delta = e.changedTouches[0].clientX - rezTouchStartX;
+      if (Math.abs(delta) > 40) goToRezSlide(rezIndex + (delta < 0 ? 1 : -1));
+      rezTouchStartX = null;
+    });
+  }
+
   // Contact form: no backend yet, show inline confirmation
   var form = document.getElementById('contactForm');
   if (form) {

@@ -279,13 +279,14 @@ p { margin: 0 0 14px; color: var(--gray); }
 /* Kontakt */
 .kontakt { padding: 80px 0; }
 .kontakt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+.kontakt-info { min-width: 0; }
 .contact-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px; font-weight: 600; margin: 20px 0; }
 .map-embed { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); margin-top: 20px; }
 .map-embed iframe { width: 100%; height: 240px; border: 0; display: block; }
-.kontakt-form { background: var(--white); padding: 32px; border-radius: 16px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 16px; }
-.kontakt-form label { font-weight: 600; font-size: 0.9rem; display: flex; flex-direction: column; gap: 6px; color: var(--ink); }
+.kontakt-form { background: var(--white); padding: 32px; border-radius: 16px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.kontakt-form label { font-weight: 600; font-size: 0.9rem; display: flex; flex-direction: column; gap: 6px; color: var(--ink); min-width: 0; }
 .kontakt-form input, .kontakt-form select, .kontakt-form textarea {
-  font: inherit; padding: 11px 14px; border-radius: 8px; border: 1px solid #d7e0df; background: var(--bg);
+  font: inherit; padding: 11px 14px; border-radius: 8px; border: 1px solid #d7e0df; background: var(--bg); width: 100%; min-width: 0;
 }
 .kontakt-form input:focus, .kontakt-form select:focus, .kontakt-form textarea:focus { outline: 2px solid var(--teal); }
 .kontakt-form input[type="file"] { padding: 8px 10px; background: var(--white); cursor: pointer; }
@@ -356,9 +357,11 @@ p { margin: 0 0 14px; color: var(--gray); }
     position: fixed; top: 68px; left: 0; right: 0; bottom: 0; overflow-y: auto;
     background: var(--white); flex-direction: column; align-items: stretch;
     padding: 20px 24px; gap: 16px; box-shadow: var(--shadow); display: none;
+    z-index: 1;
   }
   .main-nav.open { display: flex; }
-  .nav-toggle { display: block; }
+  .nav-toggle { display: block; position: relative; z-index: 2; }
+  .logo-link { position: relative; z-index: 2; }
   .header-cta, .header-emergency { display: none; }
   .dropdown-menu {
     position: static; display: none; box-shadow: none; background: transparent;
@@ -377,4 +380,6 @@ p { margin: 0 0 14px; color: var(--gray); }
   .leistungen-overview-grid { grid-template-columns: 1fr; }
   .kontakt-blocks { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; }
+  .topbar-inner { flex-wrap: wrap; row-gap: 6px; }
+  .badge-emergency { white-space: nowrap; }
 }

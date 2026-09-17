@@ -1,0 +1,793 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wurzelwerk — App &amp; Box fürs Pflanzenleben</title>
+<meta name="description" content="Wurzelwerk erinnert dich, wann deine Pflanzen wirklich Wasser brauchen, und schickt einmal im Monat nach, was ihnen fehlt. Ein Plan, kein Kleingedrucktes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Karla:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBF7EC;
+    --paper-dim:#F3EDDD;
+    --ink:#223326;
+    --ink-soft:#4B5C4E;
+    --leaf:#4C7A55;
+    --leaf-deep:#33553D;
+    --sun:#E9A23B;
+    --sun-deep:#CE8A28;
+    --clay:#C97B5A;
+    --mist:#E4E9DE;
+    --line:#D8D0BC;
+    --max:72rem;
+    --radius:18px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Karla', ui-sans-serif, system-ui, sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  img,svg{max-width:100%;display:block;}
+
+  h1,h2,h3{
+    font-family:'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+    font-weight:700;
+    line-height:1.08;
+    margin:0 0 .5em;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+  }
+
+  p{margin:0 0 1em;}
+  a{color:inherit;}
+
+  .wrap{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:0 1.5rem;
+  }
+  @media (min-width:600px){ .wrap{padding:0 2.5rem;} }
+
+  .visually-hidden{
+    position:absolute;width:1px;height:1px;overflow:hidden;
+    clip:rect(0 0 0 0);white-space:nowrap;
+  }
+
+  .skip-link{
+    position:absolute;left:-999px;top:0;background:var(--ink);color:var(--paper);
+    padding:.6em 1em;border-radius:0 0 10px 0;z-index:100;
+  }
+  .skip-link:focus{left:0;}
+
+  a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{
+    outline:3px solid var(--clay);
+    outline-offset:3px;
+    border-radius:6px;
+  }
+
+  /* ---------- buttons ---------- */
+  .btn{
+    display:inline-flex;align-items:center;gap:.5em;
+    font-family:'Karla', sans-serif;
+    font-weight:700;
+    font-size:0.98rem;
+    padding:.85em 1.4em;
+    border-radius:999px;
+    border:2px solid transparent;
+    cursor:pointer;
+    text-decoration:none;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+    line-height:1;
+  }
+  .btn-primary{
+    background:var(--sun);
+    color:var(--ink);
+    box-shadow:0 3px 0 var(--sun-deep);
+  }
+  .btn-primary:hover{ background:#EEAF56; transform:translateY(-1px); }
+  .btn-primary:active{ transform:translateY(1px); box-shadow:0 1px 0 var(--sun-deep); }
+  .btn-ghost{
+    background:transparent;
+    border-color:var(--ink);
+    color:var(--ink);
+  }
+  .btn-ghost:hover{ background:var(--ink); color:var(--paper); }
+  .btn-text{
+    background:none;border:none;color:var(--leaf-deep);font-weight:700;
+    text-decoration:underline;text-decoration-color:var(--sun);text-decoration-thickness:2px;
+    text-underline-offset:3px; padding:0;
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(251,247,236,.92);
+    backdrop-filter:saturate(140%) blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:1.05rem 0;
+  }
+  .logo{
+    font-family:'Bricolage Grotesque', sans-serif;
+    font-weight:800;
+    font-size:1.35rem;
+    text-decoration:none;
+    display:flex;align-items:center;gap:.5em;
+    color:var(--ink);
+  }
+  .logo svg{width:26px;height:26px;flex:none;}
+  .nav-links{
+    display:none;
+    gap:2rem;
+    list-style:none;margin:0;padding:0;
+    font-weight:600;
+    font-size:.95rem;
+  }
+  .nav-links a{text-decoration:none;padding:.3em 0;border-bottom:2px solid transparent;}
+  .nav-links a:hover{border-color:var(--sun);}
+  @media (min-width:820px){ .nav-links{display:flex;} }
+  .nav .btn{font-size:.9rem;padding:.65em 1.2em;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding:3.5rem 0 4rem;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;
+    gap:2.5rem;
+    align-items:center;
+  }
+  @media (min-width:900px){
+    .hero-grid{grid-template-columns:1.05fr .95fr;gap:3rem;}
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:.5em;
+    font-weight:700;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--leaf-deep);
+    background:var(--mist);
+    padding:.4em .9em;border-radius:999px;
+    margin-bottom:1.1em;
+  }
+  .hero h1{
+    font-size:clamp(2.1rem, 1.3rem + 3.4vw, 3.4rem);
+    max-width:16ch;
+  }
+  .hero .lede{
+    font-size:1.14rem;
+    color:var(--ink-soft);
+    max-width:34em;
+  }
+  .hero-cta{
+    display:flex;flex-wrap:wrap;gap:1rem 1.6rem;align-items:center;margin-top:1.6rem;
+  }
+  .hero-note{
+    margin-top:1.4rem;font-size:.92rem;color:var(--ink-soft);
+    max-width:32em;
+  }
+
+  .hero-art{position:relative;}
+  .phone{
+    background:var(--ink);
+    border-radius:32px;
+    padding:10px;
+    width:min(300px, 82vw);
+    margin:0 auto;
+    box-shadow:0 24px 50px -18px rgba(34,51,38,.45);
+    position:relative;
+    z-index:2;
+  }
+  .phone::before{
+    content:"";position:absolute;top:10px;left:50%;translate:-50% 0;
+    width:70px;height:16px;background:var(--ink);border-radius:0 0 14px 14px;
+  }
+  .phone-screen{
+    background:var(--paper);
+    border-radius:24px;
+    padding:1.6rem 1.1rem 1.3rem;
+    min-height:400px;
+  }
+  .phone-notice{
+    font-size:.72rem;color:var(--ink-soft);text-align:center;margin-bottom:1rem;font-weight:600;
+  }
+  .notif-card{
+    background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:.9rem 1rem;display:flex;gap:.7rem;align-items:flex-start;
+    box-shadow:0 8px 18px -12px rgba(34,51,38,.25);
+  }
+  .notif-card svg{width:22px;height:22px;flex:none;color:var(--leaf);margin-top:.1em;}
+  .notif-card strong{display:block;font-size:.88rem;}
+  .notif-card span{font-size:.8rem;color:var(--ink-soft);}
+  .plant-rows{margin-top:1rem;display:flex;flex-direction:column;gap:.7rem;}
+  .plant-row{
+    display:flex;align-items:center;gap:.7rem;
+    background:#fff;border:1px solid var(--line);border-radius:12px;padding:.65rem .8rem;
+  }
+  .plant-row svg{width:20px;height:20px;flex:none;color:var(--clay);}
+  .plant-row .name{font-weight:700;font-size:.85rem;display:block;}
+  .plant-row .status{font-size:.76rem;color:var(--ink-soft);}
+  .plant-row.ok .name::after{content:"";}
+
+  .pot-illustration{
+    position:absolute;
+    right:-30px;bottom:-40px;
+    width:190px;
+    opacity:.9;
+    z-index:1;
+  }
+  @media (max-width:520px){ .pot-illustration{display:none;} }
+
+  /* ---------- section basics ---------- */
+  section{padding:4.5rem 0;}
+  .section-head{max-width:38em;margin-bottom:2.6rem;}
+  .section-head h2{font-size:clamp(1.7rem, 1.2rem + 1.8vw, 2.4rem);}
+  .kicker{
+    font-weight:700;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--clay);margin-bottom:.6em;display:block;
+  }
+
+  .bg-mist{background:var(--mist);}
+  .bg-ink{background:var(--ink);color:var(--paper);}
+  .bg-ink h2, .bg-ink .kicker{color:var(--paper);}
+  .bg-ink .ink-soft-on-dark{color:#C9D3C6;}
+
+  /* ---------- how it works ---------- */
+  .steps{
+    position:relative;
+    display:grid;
+    gap:2.6rem;
+  }
+  @media (min-width:760px){
+    .steps{grid-template-columns:repeat(3,1fr);gap:1.8rem;}
+  }
+  .vine-svg{
+    position:absolute;
+    top:34px;left:0;right:0;
+    width:100%;height:60px;
+    display:none;
+    z-index:0;
+  }
+  @media (min-width:760px){ .vine-svg{display:block;} }
+  .vine-path{
+    stroke:var(--leaf);
+    stroke-width:2;
+    fill:none;
+    stroke-dasharray:600;
+    stroke-dashoffset:600;
+    transition:stroke-dashoffset 1.4s ease;
+  }
+  .vine-path.drawn{stroke-dashoffset:0;}
+
+  .step{position:relative;z-index:1;}
+  .step-num{
+    width:68px;height:68px;border-radius:50%;
+    background:var(--paper);
+    border:2px solid var(--leaf);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.3rem;color:var(--leaf-deep);
+    margin-bottom:1.1rem;
+  }
+  .step h3{font-size:1.2rem;}
+  .step p{color:var(--ink-soft);font-size:.97rem;}
+
+  /* ---------- box contents ---------- */
+  .box-layout{
+    display:grid;gap:2.5rem;
+    align-items:start;
+  }
+  @media (min-width:880px){ .box-layout{grid-template-columns:.9fr 1.1fr;} }
+  .item-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1.1rem;}
+  .item{
+    display:flex;gap:1rem;align-items:flex-start;
+    padding-bottom:1.1rem;border-bottom:1px dashed var(--line);
+  }
+  .item:last-child{border-bottom:none;padding-bottom:0;}
+  .stamp{
+    flex:none;width:44px;height:44px;border-radius:50%;
+    border:1.5px solid var(--clay);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--clay);
+    position:relative;
+  }
+  .stamp::after{
+    content:"";position:absolute;inset:4px;border:1px dashed var(--clay);border-radius:50%;opacity:.6;
+  }
+  .stamp svg{width:20px;height:20px;}
+  .item strong{display:block;font-size:1.02rem;}
+  .item span{color:var(--ink-soft);font-size:.92rem;}
+
+  .box-note{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:1.4rem 1.5rem;
+    font-size:.95rem;color:var(--ink-soft);
+  }
+  .box-note strong{color:var(--ink);}
+
+  /* ---------- app preview ---------- */
+  .preview-grid{
+    display:grid;gap:2.2rem;
+  }
+  @media (min-width:900px){ .preview-grid{grid-template-columns:1fr 1fr;} }
+  .preview-copy h2{color:var(--paper);}
+  .chat-bubble{
+    background:#2C4A34;border:1px solid #3E5F46;
+    border-radius:14px;padding:1rem 1.1rem;margin-top:1.4rem;
+    font-size:.92rem;color:#DCE6DA;
+  }
+  .chat-bubble b{color:#fff;}
+
+  /* ---------- pricing ---------- */
+  .price-card{
+    max-width:30rem;margin:0 auto;
+    background:#fff;border:1px solid var(--line);border-radius:24px;
+    padding:2.4rem 2.2rem;
+    text-align:center;
+    box-shadow:0 30px 60px -30px rgba(34,51,38,.25);
+  }
+  .price-card .amount{
+    font-family:'Bricolage Grotesque',sans-serif;font-weight:800;
+    font-size:3.2rem;color:var(--ink);margin:.3em 0 0;
+  }
+  .price-card .amount sub{font-family:'Karla',sans-serif;font-weight:600;font-size:1rem;color:var(--ink-soft);}
+  .price-list{
+    list-style:none;margin:1.6rem 0 2rem;padding:0;text-align:left;
+    display:flex;flex-direction:column;gap:.7rem;
+    font-size:.95rem;
+  }
+  .price-list li{display:flex;gap:.6em;align-items:flex-start;}
+  .price-list svg{width:18px;height:18px;flex:none;color:var(--leaf);margin-top:.2em;}
+  .price-fine{margin-top:1.2rem;font-size:.85rem;color:var(--ink-soft);}
+
+  /* ---------- testimonials ---------- */
+  .quote-grid{display:grid;gap:1.6rem;}
+  @media (min-width:760px){ .quote-grid{grid-template-columns:repeat(3,1fr);} }
+  .quote{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:1.6rem 1.5rem;font-size:.96rem;
+  }
+  .quote p{color:var(--ink);}
+  .quote cite{font-size:.84rem;color:var(--ink-soft);font-style:normal;display:block;margin-top:.6rem;}
+
+  /* ---------- faq ---------- */
+  .faq-list{max-width:42rem;}
+  details{
+    border-bottom:1px solid var(--line);
+    padding:1.1rem 0;
+  }
+  summary{
+    cursor:pointer;font-weight:700;font-size:1.02rem;
+    display:flex;justify-content:space-between;align-items:center;gap:1rem;
+    list-style:none;
+  }
+  summary::-webkit-details-marker{display:none;}
+  summary::after{
+    content:"+";
+    font-size:1.4rem;color:var(--clay);flex:none;line-height:1;
+    transition:transform .2s ease;
+  }
+  details[open] summary::after{content:"–";}
+  details p{margin-top:.7rem;color:var(--ink-soft);font-size:.94rem;max-width:38em;}
+
+  /* ---------- final cta ---------- */
+  .final-cta{
+    text-align:center;
+    padding:4rem 0 4.5rem;
+  }
+  .final-cta h2{max-width:20ch;margin:0 auto .6em;}
+  .signup{
+    max-width:26rem;margin:1.8rem auto 0;
+    display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;
+  }
+  .signup input{
+    flex:1 1 12rem;
+    padding:.85em 1.1em;border-radius:999px;border:2px solid var(--line);
+    font-family:'Karla',sans-serif;font-size:.95rem;
+    background:#fff;color:var(--ink);
+  }
+  .signup input:focus-visible{border-color:var(--clay);}
+  .signup-msg{margin-top:1rem;font-size:.92rem;color:var(--leaf-deep);font-weight:600;min-height:1.3em;}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--ink);color:#C9D3C6;padding:3.5rem 0 2.5rem;}
+  .foot-grid{display:grid;gap:2.5rem;}
+  @media (min-width:760px){ .foot-grid{grid-template-columns:1.3fr 1fr 1fr;} }
+  footer h3{color:#fff;font-size:.85rem;letter-spacing:.04em;text-transform:uppercase;font-family:'Karla',sans-serif;font-weight:700;margin-bottom:1em;}
+  footer ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.6em;font-size:.92rem;}
+  footer a{text-decoration:none;color:#C9D3C6;}
+  footer a:hover{color:#fff;}
+  .foot-logo{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.3rem;color:#fff;}
+  .foot-tag{max-width:24em;font-size:.92rem;margin-top:.8em;}
+  .foot-bottom{
+    margin-top:3rem;padding-top:1.8rem;border-top:1px solid #3B4D3E;
+    display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;
+    font-size:.82rem;color:#93A594;
+  }
+  .foot-bottom em{color:#B7C4B4;font-style:normal;}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+<!-- icon sprite -->
+<svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden;">
+  <defs>
+    <symbol id="ic-leaf" viewBox="0 0 24 24">
+      <path d="M4 20c0-8 4-15 15-16-1 11-8 15-16 15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M6 18c3-3 6-6 12-13" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="ic-water" viewBox="0 0 24 24">
+      <path d="M12 3c3 4 6 7.5 6 11a6 6 0 1 1-12 0c0-3.5 3-7 6-11z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="ic-sun" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="4.6" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <g stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+        <path d="M12 2.5v3"/><path d="M12 18.5v3"/><path d="M2.5 12h3"/><path d="M18.5 12h3"/>
+        <path d="M5 5l2.1 2.1"/><path d="M16.9 16.9L19 19"/><path d="M19 5l-2.1 2.1"/><path d="M7.1 16.9L5 19"/>
+      </g>
+    </symbol>
+    <symbol id="ic-box" viewBox="0 0 24 24">
+      <path d="M3 8l9-4.5L21 8v8l-9 4.5L3 16z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M3 8l9 4.5L21 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M12 12.5V21" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    </symbol>
+    <symbol id="ic-stick" viewBox="0 0 24 24">
+      <path d="M9 21l1-13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M15 21l-1-13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      <rect x="7.3" y="3" width="9.4" height="6" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    </symbol>
+    <symbol id="ic-scissors" viewBox="0 0 24 24">
+      <circle cx="6" cy="6" r="2.3" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <circle cx="6" cy="18" r="2.3" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M7.8 7.5L20 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M7.8 16.5L20 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="ic-card" viewBox="0 0 24 24">
+      <rect x="3.5" y="4.5" width="17" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M7 9.5h10M7 13h7M7 16h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="ic-check" viewBox="0 0 24 24">
+      <path d="M4 12.5l5.2 5.2L20 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#main">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-leaf" stroke="#33553D"/></svg>
+      Wurzelwerk
+    </a>
+    <ul class="nav-links">
+      <li><a href="#wie-es-geht">Wie es funktioniert</a></li>
+      <li><a href="#box">Die Box</a></li>
+      <li><a href="#preis">Preis</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <a class="btn btn-primary" href="#anmelden">Pflanzen eintragen</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">App im Abo · monatliche Nachschub-Box</span>
+        <h1>Deine Pflanzen merken sich nicht, wann sie Wasser brauchen. Wir schon.</h1>
+        <p class="lede">Wurzelwerk erinnert dich zur richtigen Zeit ans Gießen, Düngen und Umtopfen – abgestimmt auf jede Pflanze, die du eintägst, nicht auf einen starren Kalender. Einmal im Monat kommt außerdem ein kleines Paket mit genau dem, was deinen Pflanzen gerade fehlt.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#anmelden">Pflanzen eintragen — dauert 2 Minuten</a>
+          <a class="btn-text" href="#wie-es-geht">So funktioniert's ↓</a>
+        </div>
+        <p class="hero-note">Keine Vertragsbindung. Du kannst jederzeit pausieren, wenn deine Pflanzen – oder du – mal eine Pause brauchen.</p>
+      </div>
+
+      <div class="hero-art">
+        <div class="phone" aria-hidden="true">
+          <div class="phone-screen">
+            <p class="phone-notice">Heute, 8:41</p>
+            <div class="notif-card">
+              <svg viewBox="0 0 24 24"><use href="#ic-water"/></svg>
+              <div>
+                <strong>Dein Gummibaum hätte gern Wasser</strong>
+                <span>Erde fühlt sich trocken an — üblich nach der Hitze diese Woche.</span>
+              </div>
+            </div>
+            <div class="plant-rows">
+              <div class="plant-row">
+                <svg viewBox="0 0 24 24"><use href="#ic-leaf"/></svg>
+                <div><span class="name">Basilikum, Küche</span><span class="status">Gießen in 2 Tagen</span></div>
+              </div>
+              <div class="plant-row">
+                <svg viewBox="0 0 24 24"><use href="#ic-sun"/></svg>
+                <div><span class="name">Monstera, Wohnzimmer</span><span class="status">Frisch gedüngt · alles gut</span></div>
+              </div>
+              <div class="plant-row">
+                <svg viewBox="0 0 24 24"><use href="#ic-box"/></svg>
+                <div><span class="name">Bogenhanf, Bad</span><span class="status">Steht zu dunkel — Fenster näher?</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <svg class="pot-illustration" viewBox="0 0 200 240" aria-hidden="true">
+          <path d="M70 150c-25-40-10-90 30-95 40 5 55 55 30 95" fill="none" stroke="#33553D" stroke-width="2"/>
+          <path d="M100 55c5 25 0 55-6 95" fill="none" stroke="#33553D" stroke-width="1.4"/>
+          <path d="M55 165h90l-9 55a10 10 0 0 1-10 9H74a10 10 0 0 1-10-9z" fill="none" stroke="#C97B5A" stroke-width="2"/>
+          <path d="M50 165h100" stroke="#C97B5A" stroke-width="2"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="wie-es-geht" class="bg-mist">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Der Ablauf</span>
+        <h2>Drei Schritte, dann läuft's im Hintergrund</h2>
+      </div>
+
+      <div class="steps">
+        <svg class="vine-svg" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true">
+          <path class="vine-path" d="M80 34 C 250 -10, 380 78, 500 34 S 750 -10, 920 34" />
+        </svg>
+
+        <div class="step">
+          <div class="step-num">01</div>
+          <h3>Pflanzen eintragen</h3>
+          <p>Art auswählen oder ein Foto schicken, Standort angeben — Südfenster, Bad, dunkler Flur. Dauert pro Pflanze etwa eine Minute.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <h3>Erinnerungen zur richtigen Zeit</h3>
+          <p>Nicht nach starrem Wochenplan, sondern angepasst an Jahreszeit, Standort und was du zuletzt eingetragen hast.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <h3>Box im eigenen Rhythmus</h3>
+          <p>Einmal im Monat kommt nach, was gerade gebraucht wird. Nichts gebraucht? Einfach überspringen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOX CONTENTS -->
+  <section id="box">
+    <div class="wrap box-layout">
+      <div>
+        <span class="kicker">Die Box</span>
+        <h2>Was drinsteckt, wenn sie ankommt</h2>
+        <p style="color:var(--ink-soft); max-width:32em;">Kein Einheitspaket. Was du bekommst, richtet sich nach den Pflanzen, die in deinem Profil stehen — und danach, was in den letzten Wochen schon verschickt wurde.</p>
+      </div>
+
+      <ul class="item-list">
+        <li class="item">
+          <span class="stamp"><svg viewBox="0 0 24 24"><use href="#ic-sun"/></svg></span>
+          <div><strong>Dünger für die Wachstumsphase</strong><span>Dosiert nach Pflanzenart, nicht nach Pauschalmenge.</span></div>
+        </li>
+        <li class="item">
+          <span class="stamp"><svg viewBox="0 0 24 24"><use href="#ic-box"/></svg></span>
+          <div><strong>Frische Erde zum Auffüllen</strong><span>Für den Nachschub zwischendurch oder das nächste Umtopfen.</span></div>
+        </li>
+        <li class="item">
+          <span class="stamp"><svg viewBox="0 0 24 24"><use href="#ic-stick"/></svg></span>
+          <div><strong>Feuchtigkeits-Stäbchen</strong><span>Damit du nicht mehr mit dem Finger in der Erde rätst.</span></div>
+        </li>
+        <li class="item">
+          <span class="stamp"><svg viewBox="0 0 24 24"><use href="#ic-card"/></svg></span>
+          <div><strong>Eine Karte für diesen Monat</strong><span>Kurz, was bei deinen konkreten Pflanzen jetzt anliegt.</span></div>
+        </li>
+        <li class="item">
+          <span class="stamp"><svg viewBox="0 0 24 24"><use href="#ic-scissors"/></svg></span>
+          <div><strong>Bei Bedarf: Schere, Stützstäbe, Tuch</strong><span>Nur wenn dein Bestand danach fragt — kein Füllmaterial.</span></div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- APP PREVIEW -->
+  <section class="bg-ink">
+    <div class="wrap preview-grid">
+      <div class="preview-copy">
+        <span class="kicker">Foto-Check</span>
+        <h2>Wenn ein Blatt komisch aussieht, schickst du ein Foto</h2>
+        <p class="ink-soft-on-dark">Kein Ferndiagnose-Roulette. Du bekommst eine konkrete Einschätzung, was los ist — und ob es überhaupt etwas ist, um das man sich sorgen muss.</p>
+        <div class="chat-bubble">
+          <b>Foto-Check zu deinem Ficus:</b><br>
+          Die gelben Blätter unten sind meist kein Grund zur Sorge — er wirft einfach alte Blätter ab, während oben neue kommen. Weiter beobachten, in zwei Wochen nochmal Foto schicken.
+        </div>
+      </div>
+      <div>
+        <div class="phone" style="margin-left:auto;margin-right:auto;">
+          <div class="phone-screen">
+            <p class="phone-notice">Pflanzenübersicht</p>
+            <div class="plant-rows">
+              <div class="plant-row"><svg viewBox="0 0 24 24"><use href="#ic-leaf"/></svg><div><span class="name">Efeutute, Regal</span><span class="status">Alles gut · nächste Kontrolle in 9 Tagen</span></div></div>
+              <div class="plant-row"><svg viewBox="0 0 24 24"><use href="#ic-water"/></svg><div><span class="name">Farn, Bad</span><span class="status">Gießen heute</span></div></div>
+              <div class="plant-row"><svg viewBox="0 0 24 24"><use href="#ic-card"/></svg><div><span class="name">Ficus, Flur</span><span class="status">Foto-Check läuft</span></div></div>
+              <div class="plant-row"><svg viewBox="0 0 24 24"><use href="#ic-sun"/></svg><div><span class="name">Kaktus, Fensterbank</span><span class="status">Nächster Dünger: in 6 Wochen</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="preis">
+    <div class="wrap">
+      <div class="section-head" style="margin-left:auto;margin-right:auto;text-align:center;">
+        <span class="kicker" style="display:block;text-align:center;">Ein Plan. Kein Kleingedrucktes.</span>
+        <h2>Alles drin, nichts zum Vergleichen</h2>
+      </div>
+
+      <div class="price-card">
+        <p style="color:var(--ink-soft);font-weight:600;margin-bottom:0;">Wurzelwerk Mitgliedschaft</p>
+        <p class="amount">12,90&nbsp;€<sub> / Monat</sub></p>
+        <ul class="price-list">
+          <li><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg> App mit unbegrenzt vielen Pflanzen und Erinnerungen</li>
+          <li><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg> Monatliche Box, abgestimmt auf deinen Bestand</li>
+          <li><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg> Foto-Check bei Problemen, so oft du willst</li>
+          <li><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg> Versand innerhalb Deutschlands inklusive</li>
+          <li><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg> Jederzeit pausieren oder zum Monatsende kündigen</li>
+        </ul>
+        <a class="btn btn-primary" href="#anmelden" style="width:100%;justify-content:center;">Pflanzen eintragen</a>
+        <p class="price-fine">Kein zweiter Plan, keine Vergleichstabelle. Wenn dir das reicht, reicht es auch uns.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="bg-mist">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Aus der Nachbarschaft</span>
+        <h2>Ein paar Stimmen von Leuten mit zu vielen Töpfen auf der Fensterbank</h2>
+      </div>
+      <div class="quote-grid">
+        <div class="quote">
+          <p>„Meine Efeutute hat zum ersten Mal seit zwei Jahren neue Blätter bekommen. Ich glaube ehrlich nicht, dass das an mir lag.“</p>
+          <cite>Mira K. · 6 Pflanzen, davon 2 fast eingegangen</cite>
+        </div>
+        <div class="quote">
+          <p>„Wusste jahrelang nicht, dass mein Bogenhanf im Bad steht, als würde er in der Sahara überwintern. Jetzt weiß ich's wenigstens.“</p>
+          <cite>Jonas T. · Fensterbank-Sammlung</cite>
+        </div>
+        <div class="quote">
+          <p>„Die Box kommt, wenn ich sie brauche, nicht wenn der Kalender es sagt. Mehr wollte ich eigentlich nie von einem Abo.“</p>
+          <cite>Selin A. · Balkon plus vier Zimmerpflanzen</cite>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Bevor du fragst</span>
+        <h2>Häufige Fragen</h2>
+      </div>
+      <div class="faq-list">
+        <details>
+          <summary>Ich habe nur drei Pflanzen. Lohnt sich das überhaupt?</summary>
+          <p>Ja — die Box wird nach Bestand befüllt, nicht nach Mindestmenge. Bei drei Pflanzen kommt entsprechend weniger, nicht das gleiche Paket wie bei jemandem mit zwanzig.</p>
+        </details>
+        <details>
+          <summary>Was passiert, wenn ich in den Urlaub fahre?</summary>
+          <p>Du stellst die App für den Zeitraum auf Urlaubsmodus. Erinnerungen pausieren oder gehen wahlweise an eine Person, die während der Zeit nach den Pflanzen schaut.</p>
+        </details>
+        <details>
+          <summary>Funktioniert das auch für Kakteen und Sukkulenten?</summary>
+          <p>Ja, mit eigenem Rhythmus: seltener Wasser, seltener Dünger, andere Erde in der Box. Das Profil unterscheidet danach, was du eingetragen hast.</p>
+        </details>
+        <details>
+          <summary>Kann ich kündigen, wenn's nicht passt?</summary>
+          <p>Jederzeit, zum Ende des laufenden Monats, ohne Mindestlaufzeit und ohne dass du irgendwo anrufen musst.</p>
+        </details>
+        <details>
+          <summary>Ist die Box wenigstens nicht aus lauter Plastik?</summary>
+          <p>Papierverpackung, kompostierbare Füllung, Erde ohne Torf. Nicht perfekt, aber bewusst so gewählt.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA / SIGNUP -->
+  <section id="anmelden" class="final-cta">
+    <div class="wrap">
+      <span class="kicker" style="display:block;">Anfangen</span>
+      <h2>Trag deine erste Pflanze ein — den Rest merkt sich Wurzelwerk</h2>
+      <form class="signup" id="signup-form">
+        <label class="visually-hidden" for="email">E-Mail-Adresse</label>
+        <input id="email" name="email" type="email" placeholder="deine@email.de" required autocomplete="email">
+        <button class="btn btn-primary" type="submit">Los geht's</button>
+      </form>
+      <p class="signup-msg" id="signup-msg" role="status"></p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div>
+      <p class="foot-logo">Wurzelwerk</p>
+      <p class="foot-tag">App und monatliche Box für Leute, die ihre Pflanzen behalten möchten, statt sie alle drei Monate neu zu kaufen.</p>
+    </div>
+    <div>
+      <h3>Produkt</h3>
+      <ul>
+        <li><a href="#wie-es-geht">Wie es funktioniert</a></li>
+        <li><a href="#box">Die Box</a></li>
+        <li><a href="#preis">Preis</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Unternehmen</h3>
+      <ul>
+        <li><a href="#main">Über uns</a></li>
+        <li><a href="#anmelden">Kontakt</a></li>
+        <li><a href="#main">Impressum</a></li>
+        <li><a href="#main">Datenschutz</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© 2026 Wurzelwerk</span>
+    <em>Fiktives Beispielprojekt zu Demonstrationszwecken — kein echtes Produkt, keine echte Bestellung.</em>
+  </div>
+</footer>
+
+<script>
+  // Fake signup — no backend, purely illustrative.
+  var form = document.getElementById('signup-form');
+  var msg = document.getElementById('signup-msg');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    msg.textContent = "Schön wär's — das ist nur eine Demo-Seite. In der echten App würdest du jetzt deine erste Pflanze eintragen.";
+  });
+
+  // Draw-in vine motif once visible; skip animation if reduced motion preferred.
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var vine = document.querySelector('.vine-path');
+  if (vine) {
+    if (prefersReduced) {
+      vine.classList.add('drawn');
+    } else if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if (entry.isIntersecting) {
+            vine.classList.add('drawn');
+            obs.disconnect();
+          }
+        });
+      }, { threshold: 0.4 });
+      obs.observe(vine);
+    } else {
+      vine.classList.add('drawn');
+    }
+  }
+</script>
+</body>
+</html>
