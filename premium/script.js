@@ -46,17 +46,31 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Gallery lightbox
+  // Gallery lightbox: blättert durch alle Galerie-Bilder
   var lightbox = document.getElementById('lightbox');
   var lightboxImg = document.getElementById('lightboxImg');
   var lightboxCaption = document.getElementById('lightboxCaption');
+  var lightboxCounter = document.getElementById('lightboxCounter');
   var lightboxClose = document.getElementById('lightboxClose');
-  var galleryItems = document.querySelectorAll('.gallery-item');
+  var lightboxPrev = document.getElementById('lightboxPrev');
+  var lightboxNext = document.getElementById('lightboxNext');
+  var galleryItems = [].slice.call(document.querySelectorAll('.gallery-item'));
+  var lightboxIndex = 0;
 
-  function openLightbox(src, caption) {
-    lightboxImg.src = src;
-    lightboxImg.alt = caption || '';
-    lightboxCaption.textContent = caption || '';
+  function showLightboxItem(i) {
+    lightboxIndex = (i + galleryItems.length) % galleryItems.length;
+    var item = galleryItems[lightboxIndex];
+    var caption = item.getAttribute('data-caption') || '';
+    lightboxImg.src = item.getAttribute('data-full');
+    lightboxImg.alt = caption;
+    lightboxCaption.textContent = caption;
+    if (lightboxCounter) lightboxCounter.textContent = galleryItems.length > 1 ? (lightboxIndex + 1) + ' / ' + galleryItems.length : '';
+  }
+
+  function openLightbox(i) {
+    if (lightboxPrev) lightboxPrev.hidden = galleryItems.length < 2;
+    if (lightboxNext) lightboxNext.hidden = galleryItems.length < 2;
+    showLightboxItem(i);
     lightbox.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
@@ -66,20 +80,100 @@ document.addEventListener('DOMContentLoaded', function () {
     document.body.style.overflow = '';
   }
 
-  galleryItems.forEach(function (item) {
-    item.addEventListener('click', function () {
-      openLightbox(item.getAttribute('data-full'), item.getAttribute('data-caption'));
-    });
+  galleryItems.forEach(function (item, i) {
+    item.addEventListener('click', function () { openLightbox(i); });
   });
 
   if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+  if (lightboxPrev) lightboxPrev.addEventListener('click', function () { showLightboxItem(lightboxIndex - 1); });
+  if (lightboxNext) lightboxNext.addEventListener('click', function () { showLightboxItem(lightboxIndex + 1); });
   if (lightbox) {
     lightbox.addEventListener('click', function (e) {
       if (e.target === lightbox) closeLightbox();
     });
+    var lbTouchStartX = null;
+    lightbox.addEventListener('touchstart', function (e) { lbTouchStartX = e.touches[0].clientX; }, { passive: true });
+    lightbox.addEventListener('touchend', function (e) {
+      if (lbTouchStartX === null) return;
+      var delta = e.changedTouches[0].clientX - lbTouchStartX;
+      if (Math.abs(delta) > 40 && galleryItems.length > 1) showLightboxItem(lightboxIndex + (delta < 0 ? 1 : -1));
+      lbTouchStartX = null;
+    });
   }
   document.addEventListener('keydown', function (e) {
+    if (!lightbox || !lightbox.classList.contains('open')) return;
     if (e.key === 'Escape') closeLightbox();
+    if (galleryItems.length < 2) return;
+    if (e.key === 'ArrowLeft') showLightboxItem(lightboxIndex - 1);
+    if (e.key === 'ArrowRight') showLightboxItem(lightboxIndex + 1);
+  });
+
+  // Galerie-Slider: Pfeile gleiten um ein Panel weiter (eigene Ease-Animation statt nativem Smooth-Scroll)
+  document.querySelectorAll('[data-gal-scroll]').forEach(function (track) {
+    var frame = track.parentNode;
+    var prev = frame.querySelector('[data-gal-scroll-prev]');
+    var next = frame.querySelector('[data-gal-scroll-next]');
+    var panels = track.children;
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var DURATION = 750;
+    var anim = null;
+    var targetIndex = 0;
+
+    function maxScroll() { return track.scrollWidth - track.clientWidth; }
+    function panelLeft(i) { return Math.min(panels[i].offsetLeft - panels[0].offsetLeft, maxScroll()); }
+    function lastIndex() {
+      for (var i = 0; i < panels.length; i++) if (panelLeft(i) >= maxScroll() - 1) return i;
+      return panels.length - 1;
+    }
+    function nearestIndex() {
+      var best = 0;
+      for (var i = 1; i < panels.length; i++) {
+        if (Math.abs(panelLeft(i) - track.scrollLeft) < Math.abs(panelLeft(best) - track.scrollLeft)) best = i;
+      }
+      return best;
+    }
+    function easeInOutCubic(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+
+    function stopAnim() {
+      if (!anim) return;
+      cancelAnimationFrame(anim);
+      anim = null;
+      track.classList.remove('is-animating');
+    }
+
+    function goTo(i) {
+      targetIndex = Math.max(0, Math.min(i, lastIndex()));
+      var to = panelLeft(targetIndex);
+      stopAnim();
+      if (reduceMotion) { track.scrollLeft = to; return; }
+      var from = track.scrollLeft;
+      var start = null;
+      track.classList.add('is-animating');
+      (function frameStep(now) {
+        if (start === null) start = now;
+        var t = Math.min((now - start) / DURATION, 1);
+        track.scrollLeft = from + (to - from) * easeInOutCubic(t);
+        if (t < 1) { anim = requestAnimationFrame(frameStep); }
+        else { anim = null; track.classList.remove('is-animating'); updateArrows(); }
+      })(performance.now());
+    }
+
+    function updateArrows() {
+      var idx = anim ? targetIndex : nearestIndex();
+      if (prev) prev.disabled = idx <= 0;
+      if (next) next.disabled = idx >= lastIndex();
+    }
+
+    // Mehrfachklicks addieren sich: Basis ist das laufende Ziel, nicht die aktuelle Position
+    if (prev) prev.addEventListener('click', function () { goTo((anim ? targetIndex : nearestIndex()) - 1); updateArrows(); });
+    if (next) next.addEventListener('click', function () { goTo((anim ? targetIndex : nearestIndex()) + 1); updateArrows(); });
+    // Eigenes Wischen/Scrollen bricht die Animation ab und überlässt das Einrasten dem Browser
+    ['touchstart', 'wheel', 'pointerdown'].forEach(function (ev) {
+      track.addEventListener(ev, stopAnim, { passive: true });
+    });
+    track.addEventListener('scroll', function () { if (!anim) updateArrows(); }, { passive: true });
+    window.addEventListener('resize', updateArrows);
+    updateArrows();
   });
 
   // Kontaktformular: Leistung per Query-Parameter vorbelegen (z. B. kontakt.html?leistung=Winterdienst)
