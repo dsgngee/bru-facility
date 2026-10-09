@@ -228,6 +228,21 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // Google Maps (Zwei-Klick-Lösung): iframe erst nach Klick einsetzen, Entscheidung wird nicht gespeichert
+  document.querySelectorAll('[data-map-src]').forEach(function (map) {
+    var loadBtn = map.querySelector('[data-map-load]');
+    if (!loadBtn) return;
+    loadBtn.addEventListener('click', function () {
+      var iframe = document.createElement('iframe');
+      iframe.title = 'Standort BRU GmbH auf Google Maps';
+      iframe.referrerPolicy = 'no-referrer-when-downgrade';
+      iframe.allowFullscreen = true;
+      iframe.src = map.getAttribute('data-map-src');
+      map.classList.remove('kontakt-map--consent');
+      map.replaceChildren(iframe);
+    });
+  });
+
   // Contact form: no backend yet, show inline confirmation
   var form = document.getElementById('contactForm');
   if (form) {
